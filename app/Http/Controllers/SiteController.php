@@ -53,7 +53,7 @@ class SiteController extends Controller
      */
     public static function getSitePathFromZip(string $zipPath)
     {
-        return rtrim($zipPath, '.zip');
+        return rtrim($zipPath, '.zip').'/';
     }
 
     /**
@@ -146,7 +146,7 @@ class SiteController extends Controller
     {
         $site = Site::inRandomOrder()->first();
 
-        return view('app.sites.random', compact('site'));
+        return $this->show($request, $site);
     }
 
     /**

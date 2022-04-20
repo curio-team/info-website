@@ -32,5 +32,10 @@ Route::prefix('/')
             'names' => 'sites'
         ])->parameters([
             'beheer' => 'site'
+        ])->except([
+            'show'
         ]);
     });
+
+// Overrides default Resource route
+Route::get('/site/{site}', [SiteController::class, 'show'])->name('sites.show');

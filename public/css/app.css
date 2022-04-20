@@ -81,6 +81,7 @@ h2 .title_text::after {
   right: 0;
   bottom: 0;
   left: 0;
+  pointer-events: none;
   border: 100vh solid #69197C;
   outline: 100vh solid #69197C;
   outline-offset: -2px;
