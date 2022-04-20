@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->tinyInteger('year');
             $table->string('path_nl');
             $table->string('path_en')->nullable();
-            $table->unsignedBigInteger('publisher_id');
+            $table->string('publisher_id');
 
             $table->timestamps();
         });

@@ -23,17 +23,18 @@ return [
     ],
 
     'studenten_info_sites' => [
-        'name' => 'Studenten Info Sites',
-        'index_title' => 'Alle Sites',
-        'new_title' => 'Nieuwe Site',
-        'create_title' => 'Voeg een Site toe',
-        'edit_title' => 'Bewerk een Site',
-        'show_title' => 'Bekijk een Site',
+        'manage' => 'Manage Sites',
+        'name' => 'Student Info Sites',
+        'index_title' => 'All Sites',
+        'new_title' => 'New Site',
+        'create_title' => 'Create Site',
+        'edit_title' => 'Edit Site',
+        'show_title' => 'Show Site',
         'inputs' => [
-            'name' => 'Voornaam Student',
-            'year' => 'Leerjaar',
-            'path_nl' => 'Website als .zip - Nederlandstalig',
-            'path_en' => 'Website als .zip - Engelstalig',
+            'name' => 'Student First name',
+            'year' => 'Schoolyear',
+            'path_nl' => 'Site as .zip - Dutch',
+            'path_en' => 'Site as .zip - English',
         ],
     ],
 ];

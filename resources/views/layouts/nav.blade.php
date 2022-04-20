@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm p-2">
     <div class="container">
-        
+
         <a class="navbar-brand text-primary font-weight-bold text-uppercase" href="{{ url('/') }}">
-            sd-info
+            SD Info Website
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -13,21 +13,11 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 @auth
+                    @can('view-any', App\Models\Site::class)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">Dashboard</a>
+                        <a class="nav-link" href="{{ route('sites.index') }}">@lang('crud.studenten_info_sites.manage')</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            Apps <span class="caret"></span>
-                        </a>
-                        
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            @can('view-any', App\Models\Site::class)
-                            <a class="dropdown-item" href="{{ route('sites.index') }}">Studenten Info Sites</a>
-                            @endcan
-                        </div>
-
-                    </li>
+                    @endcan
                 @endauth
             </ul>
 

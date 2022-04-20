@@ -65,6 +65,17 @@ class SiteController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function random(Request $request)
+    {
+        $site = Site::inRandomOrder()->first();
+
+        return view('app.sites.random', compact('site'));
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Site $site
      * @return \Illuminate\Http\Response
      */
