@@ -1,5 +1,16 @@
 # Software Developer Info
 
+**Willekeurig gekozen website gemaakt door student:**
+![Screenshot van willekeurige website](.github/screenshot-student.png)
+
+**Beheer paneel waar docenten sites uploaden:**
+![Screenshot van docent beher paneel](.github/screenshot-manage.png)
+
+## Getting Started
+
+* **TODO**
+* ..
+* https://laravel.com/docs/9.x/filesystem#the-public-disk
 
 ## Notes:
 
