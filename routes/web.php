@@ -16,7 +16,7 @@ Route::get('/logout', function(){
 })->name('logout');
 
 Route::get('/amoclient/ready', function(){
-	return redirect()->route('beheer.index');
+	return redirect()->route('sites.index');
 });
 
 /*
@@ -30,5 +30,7 @@ Route::prefix('/')
     ->group(function () {
         Route::resource('beheer', SiteController::class, [
             'names' => 'sites'
+        ])->parameters([
+            'beheer' => 'site'
         ]);
     });

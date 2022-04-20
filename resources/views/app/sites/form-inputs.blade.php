@@ -71,4 +71,13 @@
         @endif @error('path_en') @include('components.inputs.partials.error')
         @enderror
     </x-inputs.group>
+
+    <x-inputs.group class="col-sm-12">
+        <x-inputs.checkbox
+            name="allow_unsafe"
+            label="Sta onveilige bestandsextensies toe"
+            checked="{{ old('allow_unsafe', ($editing ? $site->allow_unsafe : '')) }}"
+        ></x-inputs.text>
+        <em>(Zonder vinkje zullen alleen deze extensies uitgepakt worden uit de zip: {{ implode(', ', \App\Http\Controllers\SiteController::EXTENSION_ALLOWLIST) }})</em>
+    </x-inputs.group>
 </div>

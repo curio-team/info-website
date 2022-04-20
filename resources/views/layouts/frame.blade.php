@@ -1,7 +1,7 @@
 <x-partials.header>
 </x-partials.header>
 
-<iframe class="website" src="@yield('path_url')" frameborder="0"></iframe>
+<iframe sandbox class="website" src="@yield('path_url')" frameborder="0"></iframe>
 
 <div class="frame">
 </div>
