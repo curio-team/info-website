@@ -77,7 +77,7 @@ h2.student {
 h2.student .title {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
 }
 h2.student .title-text::before {
   content: "(";
@@ -156,6 +156,13 @@ h2.student .title-text::after {
           animation: unfold 0.25s linear;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
+  transition: transform 0.1s ease-in-out;
+}
+.i18n .flags a:hover svg {
+  transform: scale(1.1);
+}
+.i18n .flags a:active svg {
+  transform: scale(0.9);
 }
 .i18n .flags.delay-animate a {
   -webkit-animation-delay: 3s;

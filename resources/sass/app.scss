@@ -49,7 +49,7 @@ h2{
         .title{
             display: flex;
             flex-direction: column;
-            align-items: start;
+            align-items: flex-start;
         }
     
         .title-text{
@@ -131,6 +131,15 @@ h2{
             transform: scaleY(0);
             animation: unfold 0.25s linear;
             animation-fill-mode: forwards;
+
+            transition: transform 0.1s ease-in-out;
+
+            &:hover svg{
+                transform: scale(1.1);
+            }
+            &:active svg{
+                transform: scale(0.9);
+            }
         }
         
         &.delay-animate a{
