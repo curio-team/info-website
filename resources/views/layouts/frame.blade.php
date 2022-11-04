@@ -1,4 +1,5 @@
 <x-partials.header>
+    <script src="{{ asset('js/app-viewer.js') }}" defer></script>
 </x-partials.header>
 
 <iframe sandbox class="website" src="@yield('path_url')" frameborder="0"></iframe>
