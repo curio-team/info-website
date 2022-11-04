@@ -22,6 +22,11 @@
         @if(session()->has('success'))
             window.Notyf.success(@js(session()->get('success')));
         @endif
+
+        @if(session()->has('debug'))
+            console.log('Request returned the following debug information:')
+            console.log(@js(session()->get('debug')));
+        @endif
     });
 </script>
 

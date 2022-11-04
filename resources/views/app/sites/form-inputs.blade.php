@@ -82,12 +82,17 @@
         @enderror
     </x-inputs.group>
 
-    <x-inputs.group class="col-sm-12">
-        <x-inputs.checkbox
-            name="allow_unsafe"
-            label="Sta onveilige bestandsextensies toe"
-            checked="{{ old('allow_unsafe', ($editing ? $site->allow_unsafe : '')) }}"
-        ></x-inputs.text>
-        <em>(Zonder vinkje zullen alleen deze extensies uitgepakt worden uit de zip: {{ implode(', ', \App\Http\Controllers\SiteController::EXTENSION_ALLOWLIST) }})</em>
+    <x-inputs.group class="col-sm-12 d-flex align-items-start" style="gap: 1em;">
+        <a class="btn btn-danger" href="javascript:document.querySelector('#unsafeActions').classList.toggle('show'); void(0)">
+            Maak gevaarlijke actie mogelijk <i class="icon ion-md-arrow-forward"></i>
+        </a>
+        <div class="collapsed border p-4" id="unsafeActions">
+            <x-inputs.checkbox
+                name="allow_unsafe"
+                label="Sta onveilige bestandsextensies toe"
+                checked="{{ old('allow_unsafe', ($editing ? $site->allow_unsafe : '')) }}"
+            ></x-inputs.text>
+            <em>Zonder vinkje zullen alleen deze type bestanden uitgepakt worden uit de zip: {{ implode(', ', \App\Http\Controllers\SiteController::MIME_ALLOWLIST) }}</em>
+        </div>
     </x-inputs.group>
 </div>

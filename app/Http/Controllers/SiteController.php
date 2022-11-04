@@ -13,9 +13,21 @@ use ZipArchive;
 
 class SiteController extends Controller
 {
-    // TODO: This simple means of checking files is unsafe. Teachers should double-check what they upload.
-    public const EXTENSION_ALLOWLIST = [
-        'html', 'htm', 'css', 'js', 'png', 'jpg', 'jpeg', 'gif'
+    public const MIME_ALLOWLIST = [
+        'text/html',
+        'text/css',
+        'text/javascript',
+        'image/png',
+        'image/jpeg',
+        'image/gif',
+        'image/svg+xml',
+        'image/webp',
+        'application/json',
+        //'application/pdf',
+        'text/plain',
+        'font/woff',
+        'font/woff2',
+        'font/ttf',
     ];
 
     /**
@@ -65,6 +77,9 @@ class SiteController extends Controller
         $fullPath = Storage::path($zipPath);
         $dir = self::getSitePathFromZip($fullPath);
 
+        if (!is_dir($dir))
+            return;
+            
         // Source: https://stackoverflow.com/a/3349792
         $it = new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS);
         $files = new RecursiveIteratorIterator($it,
@@ -81,7 +96,7 @@ class SiteController extends Controller
 
     /**
      * @param string $path
-     * @return bool
+     * @return bool|array
      */
     private static function extractSite(string $zipPath, bool $allowUnsafe = false)
     {
@@ -93,11 +108,12 @@ class SiteController extends Controller
         if(!$allowUnsafe){
             $filter = [];
 
-            // TODO: This simple means of checking files is unsafe. Teachers should double-check what they upload.
             for($i = 0; $i < $archive->numFiles; $i++){
                 $file = $archive->statIndex($i);
+                     
+                $mimeType =  mime_content_type('zip://' . $archive->filename . '#' . $file['name']);
 
-                if(!in_array(strtolower(pathinfo($file['name'], PATHINFO_EXTENSION)), self::EXTENSION_ALLOWLIST)){
+                if(!in_array(strtolower($mimeType), self::MIME_ALLOWLIST)){
                     continue;
                 }
 
@@ -106,10 +122,12 @@ class SiteController extends Controller
         }
 
         if ($result !== TRUE)
-            dd("Couldn't open archive file. TODO: Handle nicely instead of dying. ($result, $fullPath)");
+            return false;
 
         $archive->extractTo(self::getSitePathFromZip($fullPath), $filter);
         $archive->close();
+
+        return $filter;
     }
 
     /**
@@ -121,21 +139,30 @@ class SiteController extends Controller
         $this->authorize('create', Site::class);
 
         $validated = $request->validated();
+        $succesfullyExtracted = [];
+
         if ($request->hasFile('path_nl')) {
             $validated['path_nl'] = $request->file('path_nl')->store('public');
-            self::extractSite($validated['path_nl'], $request->allow_unsafe);
+            
+            if(($extracted = self::extractSite($validated['path_nl'], $request->allow_unsafe)) !== false){
+                array_push($succesfullyExtracted, $extracted);
+            }
         }
 
         if ($request->hasFile('path_en')) {
             $validated['path_en'] = $request->file('path_en')->store('public');
-            self::extractSite($validated['path_en'], $request->allow_unsafe);
+            
+            if(($extracted = self::extractSite($validated['path_en'], $request->allow_unsafe)) !== false){
+                array_push($succesfullyExtracted, $extracted);
+            }
         }
 
-        $site = $request->user()->sites()->create($validated);
+        $request->user()->sites()->create($validated);
 
         return redirect()
             ->route('sites.index')
-            ->withSuccess(__('crud.common.created'));
+            ->withSuccess(__('crud.common.created'))
+            ->withDebug($succesfullyExtracted);
     }
 
     /**
@@ -205,6 +232,8 @@ class SiteController extends Controller
         $this->authorize('update', $site);
 
         $validated = $request->validated();
+        $succesfullyExtracted = [];
+        
         if ($request->hasFile('path_nl')) {
             if ($site->path_nl) {
                 Storage::delete($site->path_nl);
@@ -212,7 +241,10 @@ class SiteController extends Controller
             }
 
             $validated['path_nl'] = $request->file('path_nl')->store('public');
-            self::extractSite($validated['path_nl'], $request->allow_unsafe);
+            
+            if(($extracted = self::extractSite($validated['path_nl'], $request->allow_unsafe)) !== false){
+                array_push($succesfullyExtracted, $extracted);
+            }
         }
 
         if ($request->hasFile('path_en')) {
@@ -222,14 +254,18 @@ class SiteController extends Controller
             }
 
             $validated['path_en'] = $request->file('path_en')->store('public');
-            self::extractSite($validated['path_en'], $request->allow_unsafe);
+
+            if(($extracted = self::extractSite($validated['path_en'], $request->allow_unsafe)) !== false){
+                array_push($succesfullyExtracted, $extracted);
+            }
         }
 
         $site->update($validated);
 
         return redirect()
             ->route('sites.index', $site)
-            ->withSuccess(__('crud.common.saved'));
+            ->withSuccess(__('crud.common.saved'))
+            ->withDebug($succesfullyExtracted);
     }
 
     /**
