@@ -9,8 +9,12 @@
 ## Getting Started
 
 * **TODO**
-* ..
-* https://laravel.com/docs/9.x/filesystem#the-public-disk
+* `composer install`
+* `npm install`
+* `php artisan storage:link`
+* `php artisan migrate --seed`
+* `npm run watch`
+* `php artisan serve`
 
 ## Notes:
 
