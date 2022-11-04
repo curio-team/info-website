@@ -75,6 +75,10 @@ h2 .title_text::after {
   content: ")";
 }
 
+.shadow {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
 .frame {
   position: fixed;
   top: 0;
@@ -82,6 +86,8 @@ h2 .title_text::after {
   bottom: 0;
   left: 0;
   pointer-events: none;
+}
+.frame.animate {
   border: 100vh solid #69197C;
   outline: 100vh solid #69197C;
   outline-offset: -2px;
@@ -103,46 +109,53 @@ h2 .title_text::after {
 .developer {
   text-align: center;
   position: absolute;
+  transition: all 0.5s ease-in-out;
+  top: 0;
+  right: 0;
+}
+.developer.animate {
+  opacity: 0;
   top: 50%;
   right: 50%;
-  opacity: 0;
   transform: translate(50%, -50%);
   -webkit-animation: move 3s ease-in-out;
           animation: move 3s ease-in-out;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
 }
-.developer .i18n {
+
+.i18n {
   position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
   transform: translate(0, 100%);
 }
-.developer .i18n .flags {
+.i18n .flags {
   display: inline-flex;
   flex-direction: row;
   height: 2rem;
 }
-.developer .i18n .flags a {
-  flex: 1;
+.i18n .flags a {
   height: 100%;
+  margin-right: 0.5em;
   transform-origin: top left;
   transform: scaleY(0);
   -webkit-animation: unfold 0.25s linear;
           animation: unfold 0.25s linear;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
+}
+.i18n .flags.delay-animate a {
   -webkit-animation-delay: 3s;
           animation-delay: 3s;
 }
-.developer .i18n .flags a:nth-child(1) {
+.i18n .flags.delay-animate a:nth-child(1) {
   -webkit-animation-delay: 3.2s;
           animation-delay: 3.2s;
 }
-.developer .i18n .flags svg {
+.i18n .flags svg {
   height: 100%;
-  margin-right: 0.5rem;
 }
 
 .branding {
@@ -233,6 +246,10 @@ h2 .title_text::after {
     width: 100%;
     right: 0;
     transform: translate(0, -50%);
+  }
+
+  .i18n .flags {
+    height: 3rem;
   }
 
   @-webkit-keyframes move {
