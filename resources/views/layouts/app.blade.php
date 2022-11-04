@@ -11,4 +11,18 @@
     </main>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if($errors->any())
+            @foreach($errors->all() as $error)
+                window.Notyf.error(@js($error));
+            @endforeach
+        @endif
+
+        @if(session()->has('success'))
+            window.Notyf.success(@js(session()->get('success')));
+        @endif
+    });
+</script>
+
 <x-partials.footer />

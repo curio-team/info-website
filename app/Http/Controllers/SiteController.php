@@ -134,7 +134,7 @@ class SiteController extends Controller
         $site = $request->user()->sites()->create($validated);
 
         return redirect()
-            ->route('sites.edit', $site)
+            ->route('sites.index')
             ->withSuccess(__('crud.common.created'));
     }
 
@@ -145,6 +145,11 @@ class SiteController extends Controller
     public function random(Request $request)
     {
         $site = Site::inRandomOrder()->first();
+
+        if($site === null) {
+            echo 'Er zijn momenteel geen sites beschikbaar.';
+            exit;
+        }
 
         return $this->show($request, $site);
     }
@@ -206,7 +211,7 @@ class SiteController extends Controller
         $site->update($validated);
 
         return redirect()
-            ->route('sites.edit', $site)
+            ->route('sites.index', $site)
             ->withSuccess(__('crud.common.saved'));
     }
 

@@ -10,6 +10,9 @@
             placeholder="Janiek"
             required
         ></x-inputs.text>
+        @error('name') 
+            @include('components.inputs.partials.error')
+        @enderror
     </x-inputs.group>
 
     <x-inputs.group class="col-sm-12">
@@ -22,6 +25,9 @@
             placeholder="2"
             required
         ></x-inputs.text>
+        @error('year') 
+            @include('components.inputs.partials.error')
+        @enderror
     </x-inputs.group>
 
     <x-inputs.group class="col-sm-12">
@@ -44,7 +50,9 @@
                 ><i class="icon ion-md-download"></i>&nbsp;Download</a
             >
         </div>
-        @endif @error('path_nl') @include('components.inputs.partials.error')
+        @endif
+        @error('path_nl') 
+            @include('components.inputs.partials.error')
         @enderror
     </x-inputs.group>
 
@@ -68,7 +76,9 @@
                 ><i class="icon ion-md-download"></i>&nbsp;Download</a
             >
         </div>
-        @endif @error('path_en') @include('components.inputs.partials.error')
+        @endif
+        @error('path_en') 
+            @include('components.inputs.partials.error')
         @enderror
     </x-inputs.group>
 

@@ -39,3 +39,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/**
+ * Notifcations
+ */
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
+
+window.Notyf = new Notyf();
