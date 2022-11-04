@@ -10,22 +10,24 @@
 <div class="developer @unless(isset($_GET['noanim'])) animate @endunless" id="animatedEl" @if(isset($_GET['noanim'])) data-no-intro @endif data-add-class-after-intro="shadow">
     <span class="introduction">@yield('intro_text')</span>
     <h2 class="student">
-        <span>@yield('student_name')</span>
-        <small class="title_text">
-            @yield('title_text')
+        <span>@yield('student_name'),</span>
+        <small class="title">
             <strong>software developer</strong>
+            <span class="title-text">
+                @yield('title_text')
+            </span>
         </small>
     </h2>
     <div class="i18n">
         <div class="flags @unless(isset($_GET['noanim'])) delay-animate @endunless">
-            <a href="#">
+            <a href="{{ route('home') }}" title="Bekijk een Nederlandstalige versie van onze site (gemaakt door een van onze studenten)">
                 <svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-nl" viewBox="0 0 640 480" class="shadow">
                     <path fill="#21468b" d="M0 0h640v480H0z"/>
                     <path fill="#fff" d="M0 0h640v320H0z"/>
                     <path fill="#ae1c28" d="M0 0h640v160H0z"/>
                 </svg>
             </a>
-            <a href="#">
+            <a href="{{ route('home.english') }}" title="View an English version of our site (made by one of our students)">
                 <svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-gb" viewBox="0 0 640 480" class="shadow">
                     <path fill="#012169" d="M0 0h640v480H0z"/>
                     <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z"/>

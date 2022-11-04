@@ -27,6 +27,7 @@ Route::get('/amoclient/ready', function(){
 */
 
 Route::get('/', [SiteController::class, 'random'])->name('home');
+Route::get('/en', [SiteController::class, 'randomEnglish'])->name('home.english');
 
 Route::prefix('/')
     ->middleware('auth')

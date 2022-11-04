@@ -40,19 +40,19 @@ class Site extends Model
         return SiteController::getSitePathFromZip(Storage::url($this->{'path_'.$lang}));
     }
 
-    public function getYearText()
+    public function getYearText($inEnglish = false)
     {
         switch ($this->year) {
             case 1:
-                return __('eerstejaars student');
+                return __('app.student_year.first', [], $inEnglish ? 'en' : 'nl');
             case 2:
-                return __('tweedejaars student');
+                return __('app.student_year.second', [], $inEnglish ? 'en' : 'nl');
             case 3:
-                return __('derdejaars student');
+                return __('app.student_year.third', [], $inEnglish ? 'en' : 'nl');
             case 4:
-                return __('vierdejaars student');
+                return __('app.student_year.fourth', [], $inEnglish ? 'en' : 'nl');
             default:
-                return __('student');
+                return __('app.student', [], $inEnglish ? 'en' : 'nl');
         }
     }
 }

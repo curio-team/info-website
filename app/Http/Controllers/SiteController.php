@@ -156,6 +156,23 @@ class SiteController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function randomEnglish(Request $request)
+    {
+        $site = Site::whereNotNull('path_en')->inRandomOrder()->first();
+
+        if($site === null) {
+            echo 'Er zijn momenteel geen engelstalige sites beschikbaar.';
+            exit;
+        }
+
+        return $this->show($request, $site)
+            ->withEnglishLanguage(true);
+    }
+    
+    /**
+     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Site $site
      * @return \Illuminate\Http\Response
      */
