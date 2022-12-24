@@ -112,12 +112,9 @@ h2.student .title-text::after {
   outline-offset: -2px;
   /* Workaround for 1px gap between border and outline on transformed element */
   transform: rotate(45deg);
-  -webkit-animation: reveal 1s linear;
-          animation: reveal 1s linear;
-  -webkit-animation-delay: 2s;
-          animation-delay: 2s;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation: reveal 1s linear;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
 }
 
 .developer, .branding {
@@ -137,10 +134,8 @@ h2.student .title-text::after {
   top: 50%;
   right: 50%;
   transform: translate(50%, -50%);
-  -webkit-animation: move 3s ease-in-out;
-          animation: move 3s ease-in-out;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation: move 3s ease-in-out;
+  animation-fill-mode: forwards;
 }
 
 .i18n {
@@ -160,10 +155,8 @@ h2.student .title-text::after {
   margin-right: 0.5em;
   transform-origin: top left;
   transform: scaleY(0);
-  -webkit-animation: unfold 0.25s linear;
-          animation: unfold 0.25s linear;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation: unfold 0.25s linear;
+  animation-fill-mode: forwards;
   transition: transform 0.1s ease-in-out;
 }
 .i18n .flags a:hover svg {
@@ -173,12 +166,10 @@ h2.student .title-text::after {
   transform: scale(0.9);
 }
 .i18n .flags.delay-animate a {
-  -webkit-animation-delay: 3s;
-          animation-delay: 3s;
+  animation-delay: 3s;
 }
 .i18n .flags.delay-animate a:nth-child(1) {
-  -webkit-animation-delay: 3.2s;
-          animation-delay: 3.2s;
+  animation-delay: 3.2s;
 }
 .i18n .flags svg {
   height: 100%;
@@ -198,16 +189,6 @@ h2.student .title-text::after {
   color: #FFFFFF;
 }
 
-@-webkit-keyframes reveal {
-  0% {
-    border-width: 100%;
-  }
-  100% {
-    border-width: 0;
-    transform: rotate(0);
-  }
-}
-
 @keyframes reveal {
   0% {
     border-width: 100%;
@@ -215,23 +196,6 @@ h2.student .title-text::after {
   100% {
     border-width: 0;
     transform: rotate(0);
-  }
-}
-@-webkit-keyframes move {
-  0% {
-    opacity: 0;
-  }
-  33% {
-    opacity: 1;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
-  }
-  100% {
-    opacity: 1;
-    top: 0;
-    right: 0;
-    transform: translate(0, 0);
   }
 }
 @keyframes move {
@@ -251,14 +215,6 @@ h2.student .title-text::after {
     transform: translate(0, 0);
   }
 }
-@-webkit-keyframes unfold {
-  0% {
-    transform: scaleY(0);
-  }
-  100% {
-    transform: scaleY(1);
-  }
-}
 @keyframes unfold {
   0% {
     transform: scaleY(0);
@@ -276,24 +232,6 @@ h2.student .title-text::after {
 
   .i18n .flags {
     height: 3rem;
-  }
-
-  @-webkit-keyframes move {
-    0% {
-      opacity: 0;
-    }
-    33% {
-      opacity: 1;
-      top: 50%;
-      right: 0;
-      transform: translate(0, -50%);
-    }
-    100% {
-      opacity: 1;
-      top: 0;
-      right: 0;
-      transform: translate(0, 0);
-    }
   }
 
   @keyframes move {

@@ -1,8 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm p-2">
     <div class="container">
-
-        <a class="max-w-[200px]" href="{{ url('/') }}">
-            <x-logos.light-logo />
+        <a href="{{ url('/') }}">
+            <x-logos.light-logo height="64px" />
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

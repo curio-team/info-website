@@ -1,10 +1,5 @@
 <svg {{
-     $attributes->merge([
-        'width' => '935',
-        'height' => '550',
-    ])->class([
-        'grow',
-        'shrink-0'
+     $attributes->class([
     ]) }}
     viewBox="0 0 935 550"
     fill="none"
