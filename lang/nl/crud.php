@@ -2,6 +2,7 @@
 
 return [
     'common' => [
+        'show' => 'Bekijken',
         'actions' => 'Acties',
         'create' => 'Aanmaken',
         'edit' => 'Bewerken',

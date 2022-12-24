@@ -1,11 +1,11 @@
 @props([
-    'direction' => 'row',
+    'row' => false,
 ])
 <div {{
     $attributes->class([
-        'flex justify-between items-center gap-4',
-        'flex-row' => $direction === 'row',
-        'flex-col' => $direction === 'column',
+        'flex gap-4',
+        'flex-row' => $row,
+        'flex-col' => ! $row,
     ])
 }}>
     {{ $slot }}

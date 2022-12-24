@@ -1,13 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="card">
-        <div class="card-body">
+    <x-card>
+        <x-stack-layout>
             <h4 class="card-title">
-                <a href="{{ route('sites.index') }}" class="mr-4"
-                    ><i class="icon ion-md-arrow-back"></i
-                ></a>
                 @lang('crud.studenten_info_sites.edit_title')
             </h4>
 
@@ -19,24 +15,17 @@
             >
                 @include('app.sites.form-inputs')
 
-                <div class="mt-4">
-                    <a href="{{ route('sites.index') }}" class="btn btn-light">
-                        <i class="icon ion-md-return-left text-primary"></i>
-                        @lang('crud.common.back')
-                    </a>
-
-                    <a href="{{ route('sites.create') }}" class="btn btn-light">
-                        <i class="icon ion-md-add text-primary"></i>
-                        @lang('crud.common.create')
-                    </a>
-
-                    <button type="submit" class="btn btn-primary float-right">
-                        <i class="icon ion-md-save"></i>
+                <x-stack-layout>
+                    <x-buttons.primary submit>
                         @lang('crud.common.update')
-                    </button>
-                </div>
+                    </x-buttons.primary>
+
+                    <x-buttons.secondary href="{{ route('sites.index') }}">
+                        @lang('crud.common.back')
+                    </x-buttons.secondary>
+                </x-stack-layout>
             </x-form>
-        </div>
-    </div>
+        </x-stack-layout>
+    </x-card>
 </div>
 @endsection

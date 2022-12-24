@@ -1,28 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<div>
     <x-card>
         <x-form
             method="POST"
             action="{{ route('sites.store') }}"
             has-files>
-            <x-stack-layout direction="column">
+            <x-stack-layout>
                 @include('app.sites.form-inputs')
 
-                <div class="mt-4">
-                    <a href="{{ route('sites.index') }}" class="btn btn-light">
-                        <i class="icon ion-md-return-left text-primary"></i>
-                        @lang('crud.common.back')
-                    </a>
-
-                    <button type="submit" class="btn btn-primary float-right">
-                        <i class="icon ion-md-save"></i>
+                <x-stack-layout>
+                    <x-buttons.primary submit>
                         @lang('crud.common.create')
-                    </button>
-                </div>
+                    </x-buttons.primary>
+
+                    <x-buttons.secondary href="{{ route('sites.index') }}">
+                        @lang('crud.common.back')
+                    </x-buttons.secondary>
+                </x-stack-layout>
             </x-stack-layout>
         </x-form>
     </x-card>
-</div>
 @endsection

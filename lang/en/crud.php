@@ -2,6 +2,7 @@
 
 return [
     'common' => [
+        'show' => 'View',
         'actions' => 'Actions',
         'create' => 'Create',
         'edit' => 'Edit',
