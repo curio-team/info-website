@@ -306,27 +306,38 @@ class SiteController extends Controller
             'path' => ['max:255', 'mimes:zip'],
         ]);
 
+        // If a site is already being tested, remove that immediately
+        if(session()->has('path')) {
+            $path = session()->pull('path');
+            $sitePath = session()->pull('sitePath');
+
+            RemoveTestSite::dispatch($path, $sitePath);
+        }
+
         $path = $request->file('path')->store('public/temp');
         self::extractSite($path);
         $sitePath = SiteController::getSitePathFromZip($path);
 
-        // Remove the test site after a minute
+        // Remove the test site after a couple minutes
         RemoveTestSite::dispatch($path, $sitePath)
-            ->delay(now()->addMinutes(1));
+            ->delay(now()->addMinutes(config('app.site_testing.remove_after')));
 
-        session()->put('path', Storage::url($sitePath));
+        session()->put('path', $path);
+        session()->put('sitePath', $sitePath);
 
         return redirect()->route('sites.test.submitted');
     }
 
     public function testSubmitted(Request $request)
     {
-        $sitePath = session('path');
+        $sitePath = session('sitePath');
 
         if(!Storage::exists($sitePath)) {
             abort(404, __('crud.studenten_info_sites.test_submitted_expired'));
         }
 
-        return view('app.sites.test-show', compact('sitePath'));
+        return view('app.sites.test-show', [
+            'sitePath' => Storage::url($sitePath),
+        ]);
     }
 }

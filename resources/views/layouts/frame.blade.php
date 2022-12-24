@@ -2,6 +2,7 @@
     <script src="{{ asset('js/app-viewer.js') }}" defer></script>
 </x-partials.header>
 
+{{-- NOTE: Do not remove the 'sandbox' attribute. It is what restricts user sites to not get access to cookies and such --}}
 <iframe sandbox class="website" src="@yield('path_url')" frameborder="0"></iframe>
 
 <div class="frame @unless(isset($_GET['noanim'])) animate @endunless"

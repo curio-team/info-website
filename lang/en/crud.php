@@ -31,7 +31,9 @@ return [
         'create_title' => 'Create Site',
         'edit_title' => 'Edit Site',
         'show_title' => 'Show Site',
-        'test_submit' => 'Test Test',
+        'test' => 'Test your site',
+        'test_description' => 'To test your site you can upload your site here. This test environment is valid for :lifetime minutes.',
+        'test_submit' => 'Test Site',
         'test_submitted_expired' => 'This test site has been removed',
         'inputs' => [
             'name' => 'Student First name',

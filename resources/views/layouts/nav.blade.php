@@ -1,5 +1,5 @@
 <nav x-data="{ openSidebar: false }" class="bg-white shadow-sm py-4 px-8">
-    <x-stack-layout row class="items-center justify-between">
+    <x-stack-layout row class="items-center justify-between max-w-prose mx-auto">
         <a class="max-w-[100px] grow"
            href="{{ url('/') }}">
             <x-logos.light-logo />
@@ -33,33 +33,27 @@
             </x-stack-layout>
 
             <!-- Right Side Of Navbar -->
-            <x-stack-layout row>
+            <x-stack-layout row class="items-center">
                 <!-- Authentication Links -->
                 @guest
-                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <x-buttons.link href="{{ route('login') }}">{{ __('Login') }}</x-buttons.link>
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                        <x-buttons.link href="{{ route('register') }}">{{ __('Register') }}</x-buttons.link>
                     @endif
                 @else
-                    <a class="nav-link dropdown-toggle"
-                    href="#">
+                    <x-buttons.link
+                        target="_blank"
+                        href="{{ url('https://login.curio.codes') }}">
                         {{ Auth::user()->name }} <span class="caret"></span>
-                    </a>
+                    </x-buttons.link>
 
-                    <div>
-                        <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
+                    <form action="{{ route('logout') }}"
+                        method="POST">
+                        @csrf
+                        <x-buttons.primary submit>
                             {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form"
-                            action="{{ route('logout') }}"
-                            method="POST"
-                            class="hidden">
-                            @csrf
-                        </form>
-                    </div>
+                        </x-buttons.primary>
+                    </form>
                 @endguest
             </x-stack-layout>
         </div>

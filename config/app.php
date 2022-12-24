@@ -134,9 +134,12 @@ return [
     |
     */
 
-    'tester_access' => [
-        'user' => env('TESTER_ACCESS_USER'),
-        'password' => env('TESTER_ACCESS_PASSWORD'),
+    'site_testing' => [
+        'access_user' => env('TESTER_ACCESS_USER'),
+        'access_password' => env('TESTER_ACCESS_PASSWORD'),
+
+        // The number of minutes to keep the test site for
+        'remove_after' => env('TESTER_REMOVE_AFTER', 5),
     ],
 
     /*

@@ -16,8 +16,8 @@ class AuthenticateTest
      */
     public function handle($request, Closure $next)
     {
-        $auth_user = config('app.tester_access.user');
-        $auth_pass = config('app.tester_access.password');
+        $auth_user = config('app.site_testing.access_user');
+        $auth_pass = config('app.site_testing.access_password');
 
         header('Cache-Control: no-cache, must-revalidate, max-age=0');
 

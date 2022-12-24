@@ -31,8 +31,10 @@ return [
         'create_title' => 'Voeg een Site toe',
         'edit_title' => 'Bewerk een Site',
         'show_title' => 'Bekijk een Site',
+        'test' => 'Test website',
+        'test_description' => 'Om je website te testen kun je hier jouw site uploaden. Deze testomgeving is :lifetime minuten geldig.',
         'test_submit' => 'Site Testen',
-        'test_submitted_expired' => 'Deze test site is verwijderd',
+        'test_submitted_expired' => 'Deze testsite is verwijderd',
         'inputs' => [
             'name' => 'Voornaam Student',
             'year' => 'Leerjaar',

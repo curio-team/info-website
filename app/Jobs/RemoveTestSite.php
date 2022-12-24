@@ -36,7 +36,10 @@ class RemoveTestSite implements ShouldQueue
      */
     public function handle()
     {
-        Storage::delete($this->zipPath);
-        Storage::deleteDirectory($this->sitePath);
+        if (Storage::exists($this->zipPath))
+            Storage::delete($this->zipPath);
+
+        if (Storage::exists($this->sitePath))
+            Storage::deleteDirectory($this->sitePath);
     }
 }

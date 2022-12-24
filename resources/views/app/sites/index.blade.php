@@ -77,23 +77,19 @@
                                  aria-label="Site Actions"
                                  class="flex flex-row gap-1">
                                 @can('update', $site)
-                                <a href="{{ route('sites.edit', $site) }}">
-                                    <x-buttons.secondary>
-                                        <x-icons.edit />
-                                        <div class="hidden">
-                                            @lang('crud.common.edit')
-                                        </div>
-                                    </x-buttons.secondary>
-                                </a>
+                                <x-buttons.secondary href="{{ route('sites.edit', $site) }}">
+                                    <x-icons.edit />
+                                    <div class="hidden">
+                                        @lang('crud.common.edit')
+                                    </div>
+                                </x-buttons.secondary>
                                 @endcan @can('view', $site)
-                                <a href="{{ route('sites.show', $site) }}">
-                                    <x-buttons.secondary>
-                                        <x-icons.show />
-                                        <div class="hidden">
-                                            @lang('crud.common.show')
-                                        </div>
-                                    </x-buttons.secondary>
-                                </a>
+                                <x-buttons.secondary href="{{ route('sites.show', $site) }}">
+                                    <x-icons.show />
+                                    <div class="hidden">
+                                        @lang('crud.common.show')
+                                    </div>
+                                </x-buttons.secondary>
                                 @endcan @can('delete', $site)
                                 <form action="{{ route('sites.destroy', $site) }}"
                                       method="POST"

@@ -3,7 +3,7 @@
 <div id="app" class="text-black">
     @include('layouts.nav')
 
-    <main class="p-4">
+    <main class="max-w-prose mx-auto py-4">
         @yield('content')
     </main>
 </div>

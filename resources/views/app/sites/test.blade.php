@@ -2,6 +2,14 @@
 
 @section('content')
     <x-card>
+        <x-headings.section>
+            @lang('crud.studenten_info_sites.test')
+        </x-headings.section>
+        <p>
+            @lang('crud.studenten_info_sites.test_description', [
+                'lifetime' => config('app.site_testing.remove_after')
+            ])
+        </p>
         <x-form
             method="POST"
             action="{{ route('sites.test.submit') }}"

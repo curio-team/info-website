@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -12,7 +13,7 @@ Route::get('/login', function(){
 	return redirect('/amoclient/redirect');
 })->name('login');
 
-Route::post('/logout', function(){
+Route::post('/logout', function(Request $request){
     Auth::logout();
 
 	return redirect('/amoclient/logout');

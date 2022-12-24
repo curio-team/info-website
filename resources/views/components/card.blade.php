@@ -1,7 +1,7 @@
-<div {{
+<x-stack-layout {{
     $attributes->class([
         'bg-white shadow-md rounded p-4',
     ])
 }}>
     {{ $slot }}
-</div>
+</x-stack-layout>
