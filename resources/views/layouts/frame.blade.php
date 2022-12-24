@@ -4,7 +4,8 @@
 
 <iframe sandbox class="website" src="@yield('path_url')" frameborder="0"></iframe>
 
-<div class="frame @unless(isset($_GET['noanim'])) animate @endunless">
+<div class="frame @unless(isset($_GET['noanim'])) animate @endunless"
+    data-add-class-after-intro="!border-none !outline-none">
 </div>
 
 <div class="rounded-bl-3xl developer @unless(isset($_GET['noanim'])) animate @endunless" id="animatedEl" @if(isset($_GET['noanim'])) data-no-intro @endif data-add-class-after-intro="shadow">
