@@ -4,9 +4,9 @@
 
 @import url('_fonts.scss');
 
-$light: #FFFFFF;
-$branding-color: #69197C;
-$branding-color-secondary: #FFCC00;
+$text-color: #4A4343;
+$branding-color: #FFCC00;
+$branding-color-secondary: #4A4343;
 
 $padding: 1em;
 
@@ -16,7 +16,7 @@ $padding: 1em;
 
 html{
     font-family: Fellix,"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-    color: $light;
+    color: $text-color;
 }
 
 html, body, .frame, .website{
@@ -171,17 +171,17 @@ h2{
 
 .branding{
     position: absolute;
+    display: none;
     bottom: 0;
     left: 0;
+    background: $branding-color-secondary;
 
     svg{
-        fill: $branding-color-secondary;
         margin-right: 2px;
     }
 
     a{
         text-decoration: none;
-        color: $light;
     }
 }
 
@@ -226,7 +226,6 @@ h2{
     .developer{
         width: 100%;
         right: 0;
-        transform: translate(0, -50%);
     }
 
     .i18n .flags{
