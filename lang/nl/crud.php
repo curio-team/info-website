@@ -31,6 +31,8 @@ return [
         'create_title' => 'Voeg een Site toe',
         'edit_title' => 'Bewerk een Site',
         'show_title' => 'Bekijk een Site',
+        'test_submit' => 'Site Testen',
+        'test_submitted_expired' => 'Deze test site is verwijderd',
         'inputs' => [
             'name' => 'Voornaam Student',
             'year' => 'Leerjaar',

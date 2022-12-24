@@ -31,6 +31,8 @@ return [
         'create_title' => 'Create Site',
         'edit_title' => 'Edit Site',
         'show_title' => 'Show Site',
+        'test_submit' => 'Test Test',
+        'test_submitted_expired' => 'This test site has been removed',
         'inputs' => [
             'name' => 'Student First name',
             'year' => 'Schoolyear',

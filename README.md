@@ -15,6 +15,10 @@
 * `php artisan migrate --seed`
 * `npm run watch`
 * `php artisan serve`
+* Fill `TESTER_ACCESS_USER` and `TESTER_ACCESS_PASSWORD` with any combination to protect the test-page from bots/outsiders.
+* To run the queue that removes tester sites:
+    * Locally for development use: `php artisan schedule:work`
+    * On production set this CRON task: `* * * * * cd /path-to-your-project && php artisan queue:work --stop-when-empty >> /dev/null 2>&1` (NOTE: untested, but should work...)
 
 ## Notes:
 

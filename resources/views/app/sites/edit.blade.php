@@ -3,9 +3,9 @@
 @section('content')
     <x-card>
         <x-stack-layout>
-            <h4 class="card-title">
+            <x-headings.section>
                 @lang('crud.studenten_info_sites.edit_title')
-            </h4>
+            </x-headings.section>
 
             <x-form
                 method="PUT"

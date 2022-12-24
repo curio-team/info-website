@@ -3,11 +3,9 @@
 @section('content')
 <x-card>
     <x-stack-layout>
-        <div style="display: flex; justify-content: space-between;">
-            <h4 class="card-title">
-                @lang('crud.studenten_info_sites.index_title')
-            </h4>
-        </div>
+        <x-headings.section>
+            @lang('crud.studenten_info_sites.index_title')
+        </x-headings.section>
 
         <div>
             <x-stack-layout row>

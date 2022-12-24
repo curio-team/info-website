@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SiteStoreRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SiteUpdateRequest;
+use App\Jobs\RemoveTestSite;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ZipArchive;
@@ -79,7 +80,7 @@ class SiteController extends Controller
 
         if (!is_dir($dir))
             return;
-            
+
         // Source: https://stackoverflow.com/a/3349792
         $it = new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS);
         $files = new RecursiveIteratorIterator($it,
@@ -110,7 +111,7 @@ class SiteController extends Controller
 
             for($i = 0; $i < $archive->numFiles; $i++){
                 $file = $archive->statIndex($i);
-                     
+
                 $mimeType =  mime_content_type('zip://' . $archive->filename . '#' . $file['name']);
 
                 if(!in_array(strtolower($mimeType), self::MIME_ALLOWLIST)){
@@ -143,7 +144,7 @@ class SiteController extends Controller
 
         if ($request->hasFile('path_nl')) {
             $validated['path_nl'] = $request->file('path_nl')->store('public');
-            
+
             if(($extracted = self::extractSite($validated['path_nl'], $request->allow_unsafe)) !== false){
                 array_push($succesfullyExtracted, $extracted);
             }
@@ -151,7 +152,7 @@ class SiteController extends Controller
 
         if ($request->hasFile('path_en')) {
             $validated['path_en'] = $request->file('path_en')->store('public');
-            
+
             if(($extracted = self::extractSite($validated['path_en'], $request->allow_unsafe)) !== false){
                 array_push($succesfullyExtracted, $extracted);
             }
@@ -174,7 +175,7 @@ class SiteController extends Controller
         $site = Site::inRandomOrder()->first();
 
         if($site === null) {
-            echo 'Er zijn momenteel geen sites beschikbaar.';
+            echo 'Er zijn op dit moment geen sites beschikbaar.';
             exit;
         }
 
@@ -190,14 +191,14 @@ class SiteController extends Controller
         $site = Site::whereNotNull('path_en')->inRandomOrder()->first();
 
         if($site === null) {
-            echo 'Er zijn momenteel geen engelstalige sites beschikbaar.';
+            echo 'Er zijn op dit moment geen Engelstalige sites beschikbaar.';
             exit;
         }
 
         return $this->show($request, $site)
             ->withEnglishLanguage(true);
     }
-    
+
     /**
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Site $site
@@ -233,7 +234,7 @@ class SiteController extends Controller
 
         $validated = $request->validated();
         $succesfullyExtracted = [];
-        
+
         if ($request->hasFile('path_nl')) {
             if ($site->path_nl) {
                 Storage::delete($site->path_nl);
@@ -241,7 +242,7 @@ class SiteController extends Controller
             }
 
             $validated['path_nl'] = $request->file('path_nl')->store('public');
-            
+
             if(($extracted = self::extractSite($validated['path_nl'], $request->allow_unsafe)) !== false){
                 array_push($succesfullyExtracted, $extracted);
             }
@@ -292,5 +293,40 @@ class SiteController extends Controller
         return redirect()
             ->route('sites.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function testShow(Request $request)
+    {
+        return view('app.sites.test');
+    }
+
+    public function testSubmit(Request $request)
+    {
+        $request->validate([
+            'path' => ['max:255', 'mimes:zip'],
+        ]);
+
+        $path = $request->file('path')->store('public/temp');
+        self::extractSite($path);
+        $sitePath = SiteController::getSitePathFromZip($path);
+
+        // Remove the test site after a minute
+        RemoveTestSite::dispatch($path, $sitePath)
+            ->delay(now()->addMinutes(1));
+
+        session()->put('path', Storage::url($sitePath));
+
+        return redirect()->route('sites.test.submitted');
+    }
+
+    public function testSubmitted(Request $request)
+    {
+        $sitePath = session('path');
+
+        if(!Storage::exists($sitePath)) {
+            abort(404, __('crud.studenten_info_sites.test_submitted_expired'));
+        }
+
+        return view('app.sites.test-show', compact('sitePath'));
     }
 }

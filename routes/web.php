@@ -41,5 +41,11 @@ Route::prefix('/')
         ]);
     });
 
+Route::middleware('auth.test')->group(function () {
+    Route::get('/test', [SiteController::class, 'testShow'])->name('sites.test.show');
+    Route::post('/test', [SiteController::class, 'testSubmit'])->name('sites.test.submit');
+    Route::get('/test/submitted', [SiteController::class, 'testSubmitted'])->name('sites.test.submitted');
+});
+
 // Overrides default Resource route
 Route::get('/site/{site}', [SiteController::class, 'show'])->name('sites.show');
