@@ -42,6 +42,7 @@
             </span>
         </small>
     </h2>
+    @sectionMissing('is_test')
     <div class="i18n">
         <div class="flags @unless(isset($_GET['noanim'])) delay-animate @endunless">
             <a href="{{ route('home') }}"
@@ -78,8 +79,9 @@
             </a>
         </div>
     </div>
+    @endif
 </div>
-<div class="branding shadow rounded-tr-3xl"
+<div class="branding shadow rounded-tr-3xl @hasSection('is_test') opacity-50 @endif"
      data-add-class-after-intro="!block">
     <a href="https://www.curio.nl/mbo/techniek-en-technologie/softwaredeveloper/"
        class="logo"

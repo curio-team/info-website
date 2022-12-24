@@ -1,5 +1,29 @@
+<div style="bottom: 0; right: 0; z-index: 1000; max-width: 50ch; position: fixed; padding: 1rem; border: 1px solid #ccc; background-color: #fff; border-start-start-radius: 1em;"
+    id="__sdTestResults">
+    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+        <h2 style="margin: 0;">Testresultaten <small>(<span id="status"></span>)</small></h2>
+        <x-icons.show style="cursor: pointer;" onclick="testResultsEl.style.opacity = testResultsEl.style.opacity == 0.2 ? testResultsEl.style.opacity = 1 : testResultsEl.style.opacity = 0.2" />
+    </div>
+    <p>
+        Deze testresultaten zijn alleen zichtbaar tijdens het testen. Zorg dat alle testen slagen voordat je de site inleverd.
+    </p>
+    <ul id="testResults"
+        style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
+        <template id="testResultTemplate">
+            <li style="display: column; gap: 1rem;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <x-icons.checkmark class="checkmark" style="flex-shrink: 0;" />
+                    <x-icons.checkmark-box-empty class="no-checkmark" style="flex-shrink: 0;" />
+                    <span></span>
+                </div>
+                <ul class="test-data"></ul>
+            </li>
+        </template>
+    </ul>
+</div>
 
 <script>
+    var testResultsEl = document.getElementById('__sdTestResults');
     const extractedFiles = @json($extracted);
     let nextId = 0;
 
@@ -46,7 +70,6 @@
 
         // Test if the site has a horizontal scrollbar when the browser is 320px wide
         () => {
-            const testResultsEl = document.getElementById('__sdTestResults');
             const originalBodyWidth = document.body.style.width;
             document.body.style.width = '320px';
 
@@ -141,23 +164,3 @@
         runTests();
     });
 </script>
-<div style="bottom: 0; right: 0; z-index: 1000; max-width: 50ch; position: fixed; padding: 1rem; border: 1px solid #ccc; background-color: #fff; border-start-start-radius: 1em;"
-    id="__sdTestResults">
-    <h2 style="margin: 0;">Testresultaten <small>(<span id="status"></span>)</small></h2>
-    <p>
-        Deze testresultaten zijn alleen zichtbaar tijdens het testen. Zorg dat alle testen slagen voordat je de site inleverd.
-    </p>
-    <ul id="testResults"
-        style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
-        <template id="testResultTemplate">
-            <li style="display: column; gap: 1rem;">
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <x-icons.checkmark class="checkmark" style="flex-shrink: 0;" />
-                    <x-icons.checkmark-box-empty class="no-checkmark" style="flex-shrink: 0;" />
-                    <span></span>
-                </div>
-                <ul class="test-data"></ul>
-            </li>
-        </template>
-    </ul>
-</div>
