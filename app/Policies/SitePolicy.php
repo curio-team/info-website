@@ -28,7 +28,7 @@ class SitePolicy
      * @param  App\Models\Site  $model
      * @return mixed
      */
-    public function view(User $user, Site $model)
+    public function view(?User $user, Site $model)
     {
         return true;
     }
