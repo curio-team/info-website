@@ -7,14 +7,24 @@
 
         <button class="block md:hidden"
                 type="button"
+                @click="openSidebar = true"
                 aria-label="{{ __('Toggle navigation') }}">
             <x-icons.menu width="32px"
                           height="32px" />
         </button>
 
-        <x-stack-layout class="grow">
+        <div class="md:!block bg-white bottom-0 top-0 right-0 flex grow fixed md:static p-4 md:p-0 shadow-md md:shadow-none min-w-[50%] gap-4 flex-col md:flex-row"
+            :class="{ 'hidden': !openSidebar }">
+            <button class="block md:hidden self-end"
+                    type="button"
+                    @click="openSidebar = false"
+                    aria-label="{{ __('Toggle navigation') }}">
+                <x-icons.close width="32px"
+                               height="32px"/>
+            </button>
+
             <!-- Left Side Of Navbar -->
-            <x-stack-layout class="grow">
+            <x-stack-layout class="md:grow">
                 @auth
                 @can('view-any', App\Models\Site::class)
                     <a href="{{ route('sites.index') }}">@lang('crud.studenten_info_sites.manage')</a>
@@ -52,6 +62,6 @@
                     </div>
                 @endguest
             </x-stack-layout>
-        </x-stack-layout>
+        </div>
     </x-stack-layout>
 </nav>
