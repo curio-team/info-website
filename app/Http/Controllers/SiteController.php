@@ -11,6 +11,7 @@ use App\Jobs\RemoveTestSite;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ZipArchive;
+use Illuminate\Support\Str;
 
 class SiteController extends Controller
 {
@@ -315,8 +316,24 @@ class SiteController extends Controller
         }
 
         $path = $request->file('path')->store('public/temp');
-        self::extractSite($path);
         $sitePath = SiteController::getSitePathFromZip($path);
+        $extracted = self::extractSite($path);
+
+        // Add app.sites.partials.site-tests to every html/php/etc file that was extracted
+        foreach($extracted as $file) {
+            if(!Str::endsWith($file, '.html')
+            && !Str::endsWith($file, '.php')
+            && !Str::endsWith($file, '.htm')
+            && !Str::endsWith($file, '.xhtml')
+            && !Str::endsWith($file, '.shtml')) {
+                continue;
+            }
+
+            $file = Storage::path($sitePath . $file);
+            $contents = file_get_contents($file);
+            $contents = str_replace('</body>', view('app.sites.partials.site-tests', compact('extracted'))->render() . '</body>', $contents);
+            file_put_contents($file, $contents);
+        }
 
         // Remove the test site after a couple minutes
         RemoveTestSite::dispatch($path, $sitePath)
