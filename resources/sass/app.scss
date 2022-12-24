@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('_fonts.scss');
 
 $light: #FFFFFF;
@@ -51,12 +55,12 @@ h2{
             flex-direction: column;
             align-items: flex-start;
         }
-    
+
         .title-text{
             &::before{
                 content: '(';
             }
-    
+
             &::after{
                 content: ')';
             }
@@ -90,7 +94,7 @@ h2{
         outline: 100vh solid $branding-color;
         outline-offset: -2px; /* Workaround for 1px gap between border and outline on transformed element */
         transform: rotate(45deg);
-    
+
         animation: reveal 1s linear;
         animation-delay: 2s;
         animation-fill-mode: forwards;
@@ -150,11 +154,11 @@ h2{
                 transform: scale(0.9);
             }
         }
-        
+
         &.delay-animate a{
             animation-delay: 3s;
         }
-        
+
         &.delay-animate a:nth-child(1){
             animation-delay: 3.2s;
         }

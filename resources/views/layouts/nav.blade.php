@@ -1,57 +1,57 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm p-2">
-    <div class="container">
-        <a href="{{ url('/') }}">
-            <x-logos.light-logo height="64px" />
+<nav x-data="{ openSidebar: false }" class="bg-white shadow-sm p-4">
+    <x-stack-layout>
+        <a class="max-w-[100px] grow"
+           href="{{ url('/') }}">
+            <x-logos.light-logo />
         </a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
+        <button class="block md:hidden"
+                type="button"
+                aria-label="{{ __('Toggle navigation') }}">
+            <x-icons.menu width="32px"
+                          height="32px" />
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <x-stack-layout class="grow">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
+            <x-stack-layout class="grow">
                 @auth
-                    @can('view-any', App\Models\Site::class)
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('sites.index') }}">@lang('crud.studenten_info_sites.manage')</a>
-                    </li>
-                    @endcan
+                @can('view-any', App\Models\Site::class)
+                    <a href="{{ route('sites.index') }}">@lang('crud.studenten_info_sites.manage')</a>
+                @endcan
                 @endauth
-            </ul>
+            </x-stack-layout>
 
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
+            <x-stack-layout>
                 <!-- Authentication Links -->
                 @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
+                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
                     @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
+                        <a href="{{ route('register') }}">{{ __('Register') }}</a>
                     @endif
                 @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                    <a class="nav-link dropdown-toggle"
+                    href="#">
+                        {{ Auth::user()->name }} <span class="caret"></span>
+                    </a>
+
+                    <div>
+                        <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
+                        <form id="logout-form"
+                            action="{{ route('logout') }}"
+                            method="POST"
+                            class="hidden">
+                            @csrf
+                        </form>
+                    </div>
                 @endguest
-            </ul>
-        </div>
-    </div>
+            </x-stack-layout>
+        </x-stack-layout>
+    </x-stack-layout>
 </nav>

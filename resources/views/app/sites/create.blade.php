@@ -1,22 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">
-                <a href="{{ route('sites.index') }}" class="mr-4"
-                    ><i class="icon ion-md-arrow-back"></i
-                ></a>
-                @lang('crud.studenten_info_sites.create_title')
-            </h4>
-
-            <x-form
-                method="POST"
-                action="{{ route('sites.store') }}"
-                has-files
-                class="mt-4"
-            >
+<div>
+    <x-card>
+        <x-form
+            method="POST"
+            action="{{ route('sites.store') }}"
+            has-files>
+            <x-stack-layout direction="column">
                 @include('app.sites.form-inputs')
 
                 <div class="mt-4">
@@ -30,8 +21,8 @@
                         @lang('crud.common.create')
                     </button>
                 </div>
-            </x-form>
-        </div>
-    </div>
+            </x-stack-layout>
+        </x-form>
+    </x-card>
 </div>
 @endsection
