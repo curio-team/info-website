@@ -15,6 +15,9 @@
 * Voer de volgende commando's in de root van die repo uit:
     * `composer install`
     * `npm install`
+    * Maak en configureer de `.env` file, let daarbij op:
+        * (Alleen docenten) Vul `AMO_CLIENT_ID` en `AMO_CLIENT_SECRET` met de juiste (geheime) app geheimen
+        * Studenten kunnen simpelweg tijdelijk `->middleware('auth')` in de `routes/web.php` in het commentaar zetten
     * `php artisan storage:link`
     * `php artisan migrate --seed`
     * `npm run watch`
