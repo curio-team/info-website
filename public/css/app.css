@@ -464,9 +464,6 @@ video {
 .mt-1{
   margin-top: 0.25rem;
 }
-.mr-2{
-  margin-right: 0.5rem;
-}
 .\!block{
   display: block !important;
 }
@@ -488,9 +485,6 @@ video {
 .h-auto{
   height: auto;
 }
-.h-4{
-  height: 1rem;
-}
 .min-h-full{
   min-height: 100%;
 }
@@ -502,9 +496,6 @@ video {
 }
 .w-6{
   width: 1.5rem;
-}
-.w-4{
-  width: 1rem;
 }
 .min-w-\[50\%\]{
   min-width: 50%;
@@ -541,12 +532,6 @@ video {
 .cursor-pointer{
   cursor: pointer;
 }
-.list-inside{
-  list-style-position: inside;
-}
-.list-disc{
-  list-style-type: disc;
-}
 .flex-row{
   flex-direction: row;
 }
@@ -580,14 +565,8 @@ video {
 .rounded-md{
   border-radius: 0.375rem;
 }
-.rounded-bl-3xl{
-  border-bottom-left-radius: 1.5rem;
-}
 .rounded-tr-3xl{
   border-top-right-radius: 1.5rem;
-}
-.rounded-tl-3xl{
-  border-top-left-radius: 1.5rem;
 }
 .border{
   border-width: 1px;
@@ -722,9 +701,6 @@ video {
 .opacity-50{
   opacity: 0.5;
 }
-.opacity-10{
-  opacity: 0.1;
-}
 .shadow-md{
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
@@ -785,7 +761,7 @@ html, body, .frame, .website {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 h1, h2 {
@@ -1052,12 +1028,6 @@ h2.student .title-text::after {
 @media (min-width: 768px){
   .md\:static{
     position: static;
-  }
-  .md\:mt-0{
-    margin-top: 0px;
-  }
-  .md\:\!mt-0{
-    margin-top: 0px !important;
   }
   .md\:\!flex{
     display: flex !important;
