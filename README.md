@@ -10,25 +10,25 @@
 
 ## Getting Started
 
-### Lokale ontwikkeling
-* Clone deze repository
-* Voer de volgende commando's in de root van die repo uit:
+### Local development
+* Clone this repository
+* Run the following commands in the root of that repo:
     * `composer install`
     * `npm install`
-    * Maak en configureer de `.env` file, let daarbij op:
-        * (Alleen docenten) Vul `AMO_CLIENT_ID` en `AMO_CLIENT_SECRET` met de juiste (geheime) app geheimen
-        * Studenten kunnen simpelweg tijdelijk `->middleware('auth')` in de `routes/web.php` in het commentaar zetten
+    * Create and configure the `.env` file, note:
+        * (Teachers only) Fill `AMO_CLIENT_ID` and `AMO_CLIENT_SECRET` with the correct (secret) app secrets
+        * Students can simply temporarily put `->middleware('auth')` in the `routes/web.php` in the comment
     * `php artisan storage:link`
     * `php artisan migrate --seed`
-    * `npm run watch`
+    * `npm runwatch`
     * `php artisan serve`
 
-De website is nu beschikbaar voor
+The website is now available for
 * Prospects: `https://info.curio.codes/`
-* Studenten die websites maken: `https://info.curio.codes/test`
-* Docenten: `https://info.curio.codes/beheer`
+* Students who create websites: `https://info.curio.codes/test`
+* Teachers: `https://info.curio.codes/beheer`
 
-### Productie
+### Production
 * `sudo chown -R www-data:www-data /path/to/this/repo/root`
 * Fill `TESTER_ACCESS_USER` and `TESTER_ACCESS_PASSWORD` with any combination to protect the test-page from bots/outsiders. *Optionally use `TESTER_REMOVE_AFTER` in env to change the 5 minute test site lifetime default.*
 * To run the queue that removes tester sites:
