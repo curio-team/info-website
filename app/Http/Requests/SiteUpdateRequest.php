@@ -29,6 +29,7 @@ class SiteUpdateRequest extends FormRequest
             'path_nl' => ['max:255', 'nullable', 'mimes:zip'],
             'path_en' => ['nullable', 'max:255', 'mimes:zip'],
             'allow_unsafe' => ['boolean'],
+            'deactivate' => ['boolean'],
         ];
     }
 }

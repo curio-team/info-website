@@ -173,6 +173,7 @@ class SiteController extends Controller
      */
     public function random(Request $request)
     {
+
         $site = Site::inRandomOrder()->first();
 
         if($site === null) {

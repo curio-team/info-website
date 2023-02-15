@@ -22,6 +22,7 @@ class Site extends Model
         'path_en',
         'publisher_id',
         'allow_unsafe',
+        'deactivate',
     ];
 
     protected $searchableFields = ['*'];

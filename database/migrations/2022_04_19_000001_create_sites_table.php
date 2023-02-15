@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->string('path_en')->nullable();
             $table->boolean('allow_unsafe')->default(false);
             $table->string('publisher_id');
+            $table->boolean('deactivate')->default(false);
 
             $table->timestamps();
         });
