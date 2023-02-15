@@ -40,13 +40,13 @@
                         <th class="text-left">
                             @lang('crud.studenten_info_sites.inputs.name')
                         </th>
-                        <th class="text-left">
+                        <th class="text-left mobile-hide">
                             @lang('crud.studenten_info_sites.inputs.year')
                         </th>
-                        <th class="text-left">
+                        <th class="text-left mobile-hide">
                             @lang('crud.studenten_info_sites.inputs.path_nl')
                         </th>
-                        <th class="text-left">
+                        <th class="text-left mobile-hide">
                             @lang('crud.studenten_info_sites.inputs.path_en')
                         </th>
                         <th class="text-center">

@@ -250,3 +250,10 @@ h2{
         }
     }
 }
+
+
+@media screen and (max-width: 991px) {
+    .mobile-hide {
+        display: none;
+    }
+}
