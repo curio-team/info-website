@@ -900,6 +900,10 @@ h2.student .title-text::after {
   text-decoration: none;
 }
 
+.add-btn-sites {
+  height: 100%;
+}
+
 @keyframes reveal {
   0% {
     border-width: 100%;
