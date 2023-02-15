@@ -12,7 +12,7 @@
             <div class="error-wrapper text-center">
                 <h1>Er zijn op dit moment geen sites beschikbaar.</h1>
                 <p>Dit komt omdat er nog geen sites bestaan. probeer dit op een later moment weer.</p>
-                <p>Mocht je al een student zijn, upload dan hier jou website!</p
+                <p>Mocht je al een student zijn, upload dan hier jou website!</p>
             </div>
         </div>
     </x-stack-layout>
