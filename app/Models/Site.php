@@ -34,9 +34,6 @@ class Site extends Model
     public function getSiteUrl()
     {
         $lang = 'nl';
-
-        //TODO: en
-
         return SiteController::getSitePathFromZip(Storage::url($this->{'path_'.$lang}));
     }
 
