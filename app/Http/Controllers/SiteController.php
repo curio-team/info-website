@@ -176,8 +176,7 @@ class SiteController extends Controller
         $site = Site::inRandomOrder()->first();
 
         if($site === null) {
-            echo 'Er zijn op dit moment geen sites beschikbaar.';
-            exit;
+            return view('errors.no-sites');
         }
 
         return $this->show($request, $site);
@@ -192,8 +191,7 @@ class SiteController extends Controller
         $site = Site::whereNotNull('path_en')->inRandomOrder()->first();
 
         if($site === null) {
-            echo 'Er zijn op dit moment geen Engelstalige sites beschikbaar.';
-            exit;
+            return view('errors.no-sites', ['english' => true]);
         }
 
         return $this->show($request, $site)
