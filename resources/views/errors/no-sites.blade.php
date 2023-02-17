@@ -4,7 +4,7 @@
 @section('content') 
 <x-card>
     <x-stack-layout>
-        <x-headings.section>
+        <x-headings.section class="text-center">
             Geen sites beschikbaar <?php if(isset($english)) : ?> in het Engels <?php endif; ?>
         </x-headings.section>
 
