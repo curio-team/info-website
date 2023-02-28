@@ -944,6 +944,10 @@ h2.student .title-text::after {
     height: 3rem;
   }
 
+  nav {
+    padding: 5px 40px !important;
+  }
+
   @keyframes move {
     0% {
       opacity: 0;
