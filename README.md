@@ -39,7 +39,7 @@ The website is now available for
 <VirtualHost _default_:443>
     ...
 
-    <FilesMatch "\.(ttf|otf|eot|woff|woff2)$">
+    <FilesMatch "\.(ttf|otf|eot|woff|woff2|json)$">
         <IfModule mod_headers.c>
             Header set Access-Control-Allow-Origin "*"
         </IfModule>
