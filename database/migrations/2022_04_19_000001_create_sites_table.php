@@ -18,8 +18,8 @@ return new class extends Migration {
             $table->string('introduction_text_en')->nullable();
             $table->string('name');
             $table->tinyInteger('year');
-            $table->string('path_nl');
-            $table->string('path_en')->nullable();
+            $table->text('path_nl');
+            $table->text('path_en')->nullable();
             $table->boolean('allow_unsafe')->default(false);
             $table->string('publisher_id');
 

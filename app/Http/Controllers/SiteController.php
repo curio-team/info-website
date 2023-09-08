@@ -302,7 +302,7 @@ class SiteController extends Controller
     public function testSubmit(Request $request)
     {
         $request->validate([
-            'path' => ['max:255', 'mimes:zip'],
+            'path' => ['mimes:zip'],
         ]);
 
         // If a site is already being tested, remove that immediately

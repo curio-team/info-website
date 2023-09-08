@@ -26,8 +26,8 @@ class SiteUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'max:255', 'string'],
             'year' => ['required', 'max:255'],
-            'path_nl' => ['max:255', 'nullable', 'mimes:zip'],
-            'path_en' => ['nullable', 'max:255', 'mimes:zip'],
+            'path_nl' => ['nullable', 'mimes:zip'],
+            'path_en' => ['nullable', 'mimes:zip'],
             'allow_unsafe' => ['boolean'],
         ];
     }
