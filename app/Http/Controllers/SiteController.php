@@ -29,7 +29,13 @@ class SiteController extends Controller
         'text/plain',
         'font/woff',
         'font/woff2',
+        'application/font-woff',
+        'application/font-woff2',
+        'woff2',
         'font/ttf',
+        'font/truetype',
+        'font/opentype',
+        'application/vnd.ms-fontobject',
     ];
 
     /**
