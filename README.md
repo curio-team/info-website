@@ -34,9 +34,22 @@ The website is now available for
 * To run the queue that removes tester sites:
     * Locally for development use: `php artisan queue:work --stop-when-empty` to run the queue manually (wait 5 minutes after adding test site)
     * On production set this CRON task: `* * * * * cd /path-to-your-project && php artisan queue:work --stop-when-empty >> /dev/null 2>&1` (NOTE: untested, but should work...)
+* Configure your apache vhosts file to allow access to resource files (such as fonts) from inside the sandboxed iframe:
+```
+<VirtualHost _default_:443>
+    ...
+
+    <FilesMatch "\.(ttf|otf|eot|woff|woff2)$">
+        <IfModule mod_headers.c>
+            Header set Access-Control-Allow-Origin "*"
+        </IfModule>
+    </FilesMatch>
+
+    ...
+</VirtualHost>
+```
 
 ## Notes:
-nothing here yet
 
 ### cURL error 60: SSL certificate expired
 To test locally it can be useful to change line `28` in `/vendor/studiokaa/amoclient/src/AmoclientController.php` to `$http = new \GuzzleHttp\Client(['curl' => [CURLOPT_SSL_VERIFYPEER => false]]);`. On production you should just enable HTTPS.
