@@ -1,6 +1,6 @@
 @extends('layouts.frame')
 
-@section('path_url', $site->getSiteUrl())
+@section('path_url', $site->getSiteUrl(isset($englishLanguage)))
 @section('student_name', $site->name)
 @section('title_text', $site->getYearText(isset($englishLanguage)))
 

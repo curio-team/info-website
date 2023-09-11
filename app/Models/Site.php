@@ -31,9 +31,9 @@ class Site extends Model
         return $this->belongsTo(User::class, 'publisher_id');
     }
 
-    public function getSiteUrl()
+    public function getSiteUrl($inEnglish = false)
     {
-        $lang = 'nl';
+        $lang = $inEnglish ? 'en' : 'nl';
         return SiteController::getSitePathFromZip(Storage::url($this->{'path_'.$lang}));
     }
 
