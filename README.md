@@ -34,17 +34,16 @@ The website is now available for
 * To run the queue that removes tester sites:
     * Locally for development use: `php artisan queue:work --stop-when-empty` to run the queue manually (wait 5 minutes after adding test site)
     * On production set this CRON task: `* * * * * cd /path-to-your-project && php artisan queue:work --stop-when-empty >> /dev/null 2>&1` (NOTE: untested, but should work...)
-* Configure your apache vhosts file to allow access to resource files (such as fonts) from inside the sandboxed iframe:
+* Configure your apache vhosts file to allow access to uploaded files from inside the sandboxed iframe (some students use JS to include content from their site):
 ```
 <VirtualHost _default_:443>
     ...
-
-    <FilesMatch "\.(ttf|otf|eot|woff|woff2|json)$">
-        <IfModule mod_headers.c>
-            Header set Access-Control-Allow-Origin "*"
-        </IfModule>
-    </FilesMatch>
-
+    # Ensure this Directory points to the symlink path apache follows (and not the actual storage directory)
+    <Directory /var/www/html/info/public/storage/>
+            <IfModule mod_headers.c>
+                Header set Access-Control-Allow-Origin "*"
+            </IfModule>
+    </Directory>
     ...
 </VirtualHost>
 ```
