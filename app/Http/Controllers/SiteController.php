@@ -15,30 +15,20 @@ use Illuminate\Support\Str;
 
 class SiteController extends Controller
 {
-    public const MIME_ALLOWLIST = [
-        'text/html',
-        'text/css',
-        'text/javascript',
-        'image/png',
-        'image/jpeg',
-        'image/gif',
-        'image/svg+xml',
-        'image/webp',
-        'application/json',
-        //'application/pdf',
-        'text/plain',
-        'font/woff',
-        'font/woff2',
-        'text/x-asm',
-        'application/font-woff',
-        'application/font-woff2',
-        'application/octet-stream', // Woff2 sometimes
+    public const EXT_ALLOWLIST = [
+        'html',
+        'css',
+        'js',
+        'json',
+        'png',
+        'jpeg',
+        'gif',
+        'svg',
+        'webp',
+        'pdf',
+        'woff',
         'woff2',
-        'font/ttf',
-        'font/sfnt',
-        'font/truetype',
-        'font/opentype',
-        'application/vnd.ms-fontobject',
+        'ttf',
     ];
 
     /**
@@ -122,9 +112,10 @@ class SiteController extends Controller
             for($i = 0; $i < $archive->numFiles; $i++){
                 $file = $archive->statIndex($i);
 
-                $mimeType =  mime_content_type('zip://' . $archive->filename . '#' . $file['name']);
+                //$mimeType =  mime_content_type('zip://' . $archive->filename . '#' . $file['name']); // unreliable
+                $ext = pathinfo($file['name'], PATHINFO_EXTENSION); // unsafe, but will have to do for now
 
-                if(!in_array(strtolower($mimeType), self::MIME_ALLOWLIST)){
+                if(!in_array(strtolower($ext), self::EXT_ALLOWLIST)){
                     continue;
                 }
 

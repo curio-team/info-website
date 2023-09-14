@@ -67,7 +67,7 @@
                                checked="{{ old('allow_unsafe', ($editing ? $site->allow_unsafe : '')) }}">
                 </x-inputs.text>
                 <em>Zonder vinkje zullen alleen deze type bestanden uitgepakt worden uit de zip: {{ implode(', ',
-                    \App\Http\Controllers\SiteController::MIME_ALLOWLIST) }}</em>
+                    \App\Http\Controllers\SiteController::EXT_ALLOWLIST) }}</em>
         </div>
     </x-inputs.group>
 </x-stack-layout>
