@@ -32,6 +32,7 @@ class SiteController extends Controller
         'text/x-asm',
         'application/font-woff',
         'application/font-woff2',
+        'application/octet-stream', // Woff2 sometimes
         'woff2',
         'font/ttf',
         'font/sfnt',
