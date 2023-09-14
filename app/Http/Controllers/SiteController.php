@@ -21,6 +21,7 @@ class SiteController extends Controller
         'js',
         'json',
         'png',
+        'jpg',
         'jpeg',
         'gif',
         'svg',
