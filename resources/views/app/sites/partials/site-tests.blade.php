@@ -1,4 +1,4 @@
-<div style="bottom: 0; right: 0; z-index: 1000; max-width: 50ch; position: fixed; padding: 1rem; border: 1px solid #ccc; background-color: #fff; border-start-start-radius: 1em;"
+<div style="display: none; bottom: 0; right: 0; z-index: 1000; max-width: 50ch; position: fixed; padding: 1rem; border: 1px solid #ccc; background-color: #fff; border-start-start-radius: 1em;"
     id="__sdTestResults">
     <div style="display: flex; flex-direction: row; justify-content: space-between;">
         <h2 style="margin: 0;">Testresultaten <small>(<span id="status"></span>)</small></h2>
