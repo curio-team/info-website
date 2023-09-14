@@ -49,4 +49,5 @@ Route::middleware('auth.test')->group(function () {
 });
 
 // Overrides default Resource route
+Route::get('/site/{site}/en', [SiteController::class, 'showEnglish'])->name('sites.show');
 Route::get('/site/{site}', [SiteController::class, 'show'])->name('sites.show');

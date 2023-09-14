@@ -216,6 +216,21 @@ class SiteController extends Controller
      * @param \App\Models\Site $site
      * @return \Illuminate\Http\Response
      */
+    public function showEnglish(Request $request, Site $site)
+    {
+        $this->authorize('view', $site);
+
+        return view('app.sites.show', [
+            'site' => $site,
+            'englishLanguage' => true,
+        ]);
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Site $site
+     * @return \Illuminate\Http\Response
+     */
     public function edit(Request $request, Site $site)
     {
         $this->authorize('update', $site);
