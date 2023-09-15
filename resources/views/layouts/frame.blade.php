@@ -42,10 +42,9 @@
             </span>
         </small>
     </h2>
-    @sectionMissing('is_test')
     <div class="i18n">
         <div class="flags @unless(isset($_GET['noanim'])) delay-animate @endunless">
-            <a href="{{ route('home') }}"
+            <a @sectionMissing('is_test') href="{{ route('home') }}" @endif
                title="Bekijk een Nederlandstalige versie van onze site (gemaakt door een van onze studenten)">
                 <svg xmlns="http://www.w3.org/2000/svg"
                      id="flag-icons-nl"
@@ -59,7 +58,7 @@
                           d="M0 0h640v160H0z" />
                 </svg>
             </a>
-            <a href="{{ route('home.english') }}"
+            <a @sectionMissing('is_test') href="{{ route('home.english') }}" @endif
                title="View an English version of our site (made by one of our students)">
                 <svg xmlns="http://www.w3.org/2000/svg"
                      id="flag-icons-gb"
@@ -79,7 +78,6 @@
             </a>
         </div>
     </div>
-    @endif
 </div>
 <div class="branding shadow rounded-tr-3xl @hasSection('is_test') opacity-50 @endif"
      data-add-class-after-intro="!block">
