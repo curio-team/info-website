@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f31c455ab8a025060a105fd666c9b2e2",
+    "content-hash": "1659289780620fc741a5ddf156f196a4",
     "packages": [
         {
             "name": "brick/math",
@@ -61,6 +61,55 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "curio/sdclient",
+            "version": "v4.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/curio-team/sdclient.git",
+                "reference": "bdd57f434c46386746d461c1b8a34d66031bd669"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/curio-team/sdclient/zipball/bdd57f434c46386746d461c1b8a34d66031bd669",
+                "reference": "bdd57f434c46386746d461c1b8a34d66031bd669",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.0",
+                "lcobucci/jwt": "4.0.4"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.14"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Curio\\SdClient\\SdClientServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Curio\\SdClient\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC-BY-NC-SA-4.0"
+            ],
+            "authors": [
+                {
+                    "name": "Bart Roos"
+                }
+            ],
+            "description": "Client for sdlogin",
+            "support": {
+                "source": "https://github.com/curio-team/sdclient/tree/v4.1.1"
+            },
+            "time": "2024-03-02T12:14:45+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -3068,54 +3117,6 @@
                 "source": "https://github.com/stella-maris-solutions/clock/tree/0.1.7"
             },
             "time": "2022-11-25T16:15:06+00:00"
-        },
-        {
-            "name": "studiokaa/amoclient",
-            "version": "v3.1.0-alpha",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/StudioKaa/amoclient.git",
-                "reference": "b83ca04d9314ba62cb7fa1a14b882b3ffabbf4f5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/StudioKaa/amoclient/zipball/b83ca04d9314ba62cb7fa1a14b882b3ffabbf4f5",
-                "reference": "b83ca04d9314ba62cb7fa1a14b882b3ffabbf4f5",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^7.0",
-                "lcobucci/jwt": "^4.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "StudioKaa\\Amoclient\\AmoclientServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "StudioKaa\\Amoclient\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "CC-BY-NC-SA-4.0"
-            ],
-            "authors": [
-                {
-                    "name": "Bart Roos",
-                    "email": "bart@studiokaa.co"
-                }
-            ],
-            "description": "Client for amologin",
-            "support": {
-                "issues": "https://github.com/StudioKaa/amoclient/issues",
-                "source": "https://github.com/StudioKaa/amoclient/tree/v3.1.0-alpha"
-            },
-            "time": "2022-04-19T13:10:49+00:00"
         },
         {
             "name": "symfony/console",
@@ -8044,7 +8045,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
@@ -8052,5 +8053,5 @@
         "php": "^8.0.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.6.0"
 }

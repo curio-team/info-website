@@ -11,16 +11,17 @@
 ## Getting Started
 
 ### Local development
+
 * Clone this repository
 * Run the following commands in the root of that repo:
     * `composer install`
     * `npm install`
     * Create and configure the `.env` file, note:
-        * (Teachers only) Fill `AMO_CLIENT_ID` and `AMO_CLIENT_SECRET` with the correct (secret) app secrets
+        * Fill `SD_CLIENT_ID` and `SD_CLIENT_SECRET` with the correct (secret) app secrets
         * Students can simply temporarily put `->middleware('auth')` in the `routes/web.php` in the comment
     * `php artisan storage:link`
     * `php artisan migrate --seed`
-    * `npm runwatch`
+    * `npm run watch`
     * `php artisan serve`
 
 The website is now available for
@@ -51,7 +52,7 @@ The website is now available for
 ## Notes:
 
 ### cURL error 60: SSL certificate expired
-To test locally it can be useful to change line `28` in `/vendor/studiokaa/amoclient/src/AmoclientController.php` to `$http = new \GuzzleHttp\Client(['curl' => [CURLOPT_SSL_VERIFYPEER => false]]);`. On production you should just enable HTTPS.
+To test locally without HTTPS set `SD_SSL_VERIFYPEER=no` in the `.env` file.
 
 ### Testing
 The directory `tests/TestData/` contains some websites that can be used to test.

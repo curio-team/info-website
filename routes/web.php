@@ -6,21 +6,28 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /*
-    AmoClient Auth
+    SdClient Auth
 */
 
 Route::get('/login', function(){
-	return redirect('/amoclient/redirect');
+	return redirect('/sdclient/redirect');
 })->name('login');
 
 Route::post('/logout', function(Request $request){
     Auth::logout();
 
-	return redirect('/amoclient/logout');
+	return redirect('/sdclient/logout');
 })->name('logout');
 
-Route::get('/amoclient/ready', function(){
+Route::get('/sdclient/ready', function(){
 	return redirect()->route('sites.index');
+});
+
+Route::get('/sdclient/error', function() {
+    $error = session('sdclient.error');
+    $error_description = session('sdclient.error_description');
+
+    return 'There was an error signing in: ' . $error_description . ' (' . $error . ')<br><a href="/login">Try again</a>';
 });
 
 /*
