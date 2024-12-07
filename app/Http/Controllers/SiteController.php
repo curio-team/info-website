@@ -174,7 +174,8 @@ class SiteController extends Controller
      */
     public function random(Request $request)
     {
-        $site = Site::inRandomOrder()->first();
+
+        $site = Site::where('deactivate', false)->inRandomOrder()->first();
 
         if($site === null) {
             return view('errors.no-sites');
@@ -189,7 +190,7 @@ class SiteController extends Controller
      */
     public function randomEnglish(Request $request)
     {
-        $site = Site::whereNotNull('path_en')->inRandomOrder()->first();
+        $site = Site::where('deactivate', false)->whereNotNull('path_en')->inRandomOrder()->first();
 
         if($site === null) {
             return view('errors.no-sites', ['english' => true]);

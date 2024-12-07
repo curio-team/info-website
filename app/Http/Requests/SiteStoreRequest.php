@@ -29,6 +29,7 @@ class SiteStoreRequest extends FormRequest
             'path_nl' => ['nullable', 'mimes:zip'],
             'path_en' => ['nullable', 'mimes:zip'],
             'allow_unsafe' => ['boolean'],
+            'deactivate' => ['boolean'],
         ];
     }
 }

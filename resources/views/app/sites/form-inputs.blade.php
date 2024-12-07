@@ -54,6 +54,7 @@
         @endif
     </x-inputs.group>
 
+
     <x-inputs.group class="col-sm-12 d-flex align-items-start"
                     style="gap: 1em;"
                     x-data="{ showUnsafe: false }">
@@ -70,4 +71,21 @@
                     \App\Http\Controllers\SiteController::EXT_ALLOWLIST) }}</em>
         </div>
     </x-inputs.group>
+
+    <x-inputs.group class="col-sm-12 d-flex align-items-start"
+                    style="gap: 1em;"
+                    x-data="{ showDeactivate: false }">
+        <x-buttons.danger @click="showDeactivate = !showDeactivate">
+            Deactiveer Site
+        </x-buttons.danger>
+        <div class="collapsed border p-4"
+             :class="{ 'show': showDeactivate }">
+            <x-inputs.checkbox name="deactivate"
+                               label="Deactiveer"
+                               checked="{{ old('deactivate', ($editing ? $site->deactivate : '')) }}">
+                </x-inputs.text>
+                <em>Zonder vinkje zal de site nog steeds zichtbaar zijn</em>
+        </div>
+    </x-inputs.group>
+
 </x-stack-layout>
