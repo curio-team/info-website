@@ -25,7 +25,7 @@
                 </div>
                 <div class="grow">
                     @can('create', App\Models\Site::class)
-                    <x-buttons.primary href="{{ route('sites.create') }}">
+                    <x-buttons.primary class="btn-full-height" href="{{ route('sites.create') }}">
                         @lang('crud.common.create')
                     </x-buttons.primary>
                     @endcan
