@@ -1,6 +1,5 @@
 <x-partials.header>
-    <script src="{{ asset('js/app-viewer.js') }}"
-            defer></script>
+    @vite('resources/js/app-viewer.js')
 </x-partials.header>
 
 {{-- NOTE: Do not remove the 'sandbox' attribute. It is what restricts user sites to not get access to cookies and such

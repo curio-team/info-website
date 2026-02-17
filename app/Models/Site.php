@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Http\Controllers\SiteController;
 use App\Models\Scopes\Searchable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Site extends Model
@@ -34,7 +34,7 @@ class Site extends Model
     public function getSiteUrl($inEnglish = false)
     {
         $lang = $inEnglish ? 'en' : 'nl';
-        return SiteController::getSitePathFromZip(Storage::url($this->{'path_'.$lang}));
+        return '/storage/' . SiteController::getSitePathFromZip($this->{'path_' . $lang});
     }
 
     public function getYearText($inEnglish = false)

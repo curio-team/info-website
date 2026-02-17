@@ -3,18 +3,17 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-// Source: https://medium.com/oceanize-geeks/laravel-middleware-basic-auth-implementation-88b777361b5c
 class AuthenticateTest
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         $auth_user = config('app.site_testing.access_user');
         $auth_pass = config('app.site_testing.access_password');

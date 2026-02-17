@@ -8,6 +8,7 @@ use App\Http\Requests\SiteStoreRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SiteUpdateRequest;
 use App\Jobs\RemoveTestSite;
+use Illuminate\Support\Facades\Gate;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ZipArchive;
@@ -38,7 +39,9 @@ class SiteController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('view-any', Site::class);
+        if (!Gate::allows('viewAny', Site::class)) {
+            abort(403);
+        }
 
         $search = $request->get('search', '');
 
@@ -56,7 +59,9 @@ class SiteController extends Controller
      */
     public function create(Request $request)
     {
-        $this->authorize('create', Site::class);
+        if (!Gate::allows('create', Site::class)) {
+            abort(403);
+        }
 
         return view('app.sites.create');
     }
@@ -67,7 +72,7 @@ class SiteController extends Controller
      */
     public static function getSitePathFromZip(string $zipPath)
     {
-        return rtrim($zipPath, '.zip').'/';
+        return rtrim($zipPath, '.zip') . '/';
     }
 
     /**
@@ -76,7 +81,7 @@ class SiteController extends Controller
      */
     private static function removeSite(string $zipPath)
     {
-        $fullPath = Storage::path($zipPath);
+        $fullPath = Storage::disk('public')->path($zipPath);
         $dir = self::getSitePathFromZip($fullPath);
 
         if (!is_dir($dir))
@@ -84,10 +89,12 @@ class SiteController extends Controller
 
         // Source: https://stackoverflow.com/a/3349792
         $it = new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS);
-        $files = new RecursiveIteratorIterator($it,
-                    RecursiveIteratorIterator::CHILD_FIRST);
-        foreach($files as $file) {
-            if ($file->isDir()){
+        $files = new RecursiveIteratorIterator(
+            $it,
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+        foreach ($files as $file) {
+            if ($file->isDir()) {
                 rmdir($file->getRealPath());
             } else {
                 unlink($file->getRealPath());
@@ -102,21 +109,21 @@ class SiteController extends Controller
      */
     private static function extractSite(string $zipPath, bool $allowUnsafe = false)
     {
-        $fullPath = Storage::path($zipPath);
+        $fullPath = Storage::disk('public')->path($zipPath);
         $archive = new ZipArchive;
         $result = $archive->open($fullPath);
         $filter = null;
 
-        if(!$allowUnsafe){
+        if (!$allowUnsafe) {
             $filter = [];
 
-            for($i = 0; $i < $archive->numFiles; $i++){
+            for ($i = 0; $i < $archive->numFiles; $i++) {
                 $file = $archive->statIndex($i);
 
                 //$mimeType =  mime_content_type('zip://' . $archive->filename . '#' . $file['name']); // unreliable
                 $ext = pathinfo($file['name'], PATHINFO_EXTENSION); // unsafe, but will have to do for now
 
-                if(!in_array(strtolower($ext), self::EXT_ALLOWLIST)){
+                if (!in_array(strtolower($ext), self::EXT_ALLOWLIST)) {
                     continue;
                 }
 
@@ -127,7 +134,8 @@ class SiteController extends Controller
         if ($result !== TRUE)
             return false;
 
-        $archive->extractTo(self::getSitePathFromZip($fullPath), $filter);
+        $extractionPath = self::getSitePathFromZip($fullPath);
+        $archive->extractTo($extractionPath, $filter);
         $archive->close();
 
         return $filter;
@@ -139,23 +147,25 @@ class SiteController extends Controller
      */
     public function store(SiteStoreRequest $request)
     {
-        $this->authorize('create', Site::class);
+        if (!Gate::allows('create', Site::class)) {
+            abort(403);
+        }
 
         $validated = $request->validated();
         $succesfullyExtracted = [];
 
         if ($request->hasFile('path_nl')) {
-            $validated['path_nl'] = $request->file('path_nl')->store('public');
+            $validated['path_nl'] = $request->file('path_nl')->store('', 'public');
 
-            if(($extracted = self::extractSite($validated['path_nl'], $request->allow_unsafe)) !== false){
+            if (($extracted = self::extractSite($validated['path_nl'], $request->allow_unsafe)) !== false) {
                 array_push($succesfullyExtracted, $extracted);
             }
         }
 
         if ($request->hasFile('path_en')) {
-            $validated['path_en'] = $request->file('path_en')->store('public');
+            $validated['path_en'] = $request->file('path_en')->store('', 'public');
 
-            if(($extracted = self::extractSite($validated['path_en'], $request->allow_unsafe)) !== false){
+            if (($extracted = self::extractSite($validated['path_en'], $request->allow_unsafe)) !== false) {
                 array_push($succesfullyExtracted, $extracted);
             }
         }
@@ -176,7 +186,7 @@ class SiteController extends Controller
     {
         $site = Site::inRandomOrder()->first();
 
-        if($site === null) {
+        if ($site === null) {
             return view('errors.no-sites');
         }
 
@@ -191,7 +201,7 @@ class SiteController extends Controller
     {
         $site = Site::whereNotNull('path_en')->inRandomOrder()->first();
 
-        if($site === null) {
+        if ($site === null) {
             return view('errors.no-sites', ['english' => true]);
         }
 
@@ -206,7 +216,9 @@ class SiteController extends Controller
      */
     public function show(Request $request, Site $site)
     {
-        $this->authorize('view', $site);
+        if (!Gate::allows('view', $site)) {
+            abort(403);
+        }
 
         return view('app.sites.show', compact('site'));
     }
@@ -218,7 +230,9 @@ class SiteController extends Controller
      */
     public function showEnglish(Request $request, Site $site)
     {
-        $this->authorize('view', $site);
+        if (!Gate::allows('view', $site)) {
+            abort(403);
+        }
 
         return view('app.sites.show', [
             'site' => $site,
@@ -233,7 +247,9 @@ class SiteController extends Controller
      */
     public function edit(Request $request, Site $site)
     {
-        $this->authorize('update', $site);
+        if (!Gate::allows('update', $site)) {
+            abort(403);
+        }
 
         return view('app.sites.edit', compact('site'));
     }
@@ -245,33 +261,35 @@ class SiteController extends Controller
      */
     public function update(SiteUpdateRequest $request, Site $site)
     {
-        $this->authorize('update', $site);
+        if (!Gate::allows('update', $site)) {
+            abort(403);
+        }
 
         $validated = $request->validated();
         $succesfullyExtracted = [];
 
         if ($request->hasFile('path_nl')) {
             if ($site->path_nl) {
-                Storage::delete($site->path_nl);
+                Storage::disk('public')->delete($site->path_nl);
                 self::removeSite($site->path_nl);
             }
 
-            $validated['path_nl'] = $request->file('path_nl')->store('public');
+            $validated['path_nl'] = $request->file('path_nl')->store('', 'public');
 
-            if(($extracted = self::extractSite($validated['path_nl'], $request->allow_unsafe)) !== false){
+            if (($extracted = self::extractSite($validated['path_nl'], $request->allow_unsafe)) !== false) {
                 array_push($succesfullyExtracted, $extracted);
             }
         }
 
         if ($request->hasFile('path_en')) {
             if ($site->path_en) {
-                Storage::delete($site->path_en);
+                Storage::disk('public')->delete($site->path_en);
                 self::removeSite($site->path_en);
             }
 
-            $validated['path_en'] = $request->file('path_en')->store('public');
+            $validated['path_en'] = $request->file('path_en')->store('', 'public');
 
-            if(($extracted = self::extractSite($validated['path_en'], $request->allow_unsafe)) !== false){
+            if (($extracted = self::extractSite($validated['path_en'], $request->allow_unsafe)) !== false) {
                 array_push($succesfullyExtracted, $extracted);
             }
         }
@@ -291,15 +309,17 @@ class SiteController extends Controller
      */
     public function destroy(Request $request, Site $site)
     {
-        $this->authorize('delete', $site);
+        if (!Gate::allows('delete', $site)) {
+            abort(403);
+        }
 
         if ($site->path_nl) {
-            Storage::delete($site->path_nl);
+            Storage::disk('public')->delete($site->path_nl);
             self::removeSite($site->path_nl);
         }
 
         if ($site->path_en) {
-            Storage::delete($site->path_en);
+            Storage::disk('public')->delete($site->path_en);
             self::removeSite($site->path_en);
         }
 
@@ -322,28 +342,30 @@ class SiteController extends Controller
         ]);
 
         // If a site is already being tested, remove that immediately
-        if(session()->has('path')) {
+        if (session()->has('path')) {
             $path = session()->pull('path');
             $sitePath = session()->pull('sitePath');
 
             RemoveTestSite::dispatch($path, $sitePath);
         }
 
-        $path = $request->file('path')->store('public/temp');
+        $path = $request->file('path')->store('temp', 'public');
         $sitePath = SiteController::getSitePathFromZip($path);
         $extracted = self::extractSite($path);
 
         // Add app.sites.partials.site-tests to every html/php/etc file that was extracted
-        foreach($extracted as $file) {
-            if(!Str::endsWith($file, '.html')
-            && !Str::endsWith($file, '.php')
-            && !Str::endsWith($file, '.htm')
-            && !Str::endsWith($file, '.xhtml')
-            && !Str::endsWith($file, '.shtml')) {
+        foreach ($extracted as $file) {
+            if (
+                !Str::endsWith($file, '.html')
+                && !Str::endsWith($file, '.php')
+                && !Str::endsWith($file, '.htm')
+                && !Str::endsWith($file, '.xhtml')
+                && !Str::endsWith($file, '.shtml')
+            ) {
                 continue;
             }
 
-            $file = Storage::path($sitePath . $file);
+            $file = Storage::disk('public')->path($sitePath . $file);
             $contents = file_get_contents($file);
             $contents = str_replace('</body>', view('app.sites.partials.site-tests', compact('extracted'))->render() . '</body>', $contents);
             file_put_contents($file, $contents);
@@ -363,12 +385,12 @@ class SiteController extends Controller
     {
         $sitePath = session('sitePath');
 
-        if(!Storage::exists($sitePath)) {
+        if (!Storage::disk('public')->exists($sitePath)) {
             abort(404, __('crud.studenten_info_sites.test_submitted_expired'));
         }
 
         return view('app.sites.test-show', [
-            'sitePath' => Storage::url($sitePath),
+            'sitePath' => '/storage/' . $sitePath,
         ]);
     }
 }

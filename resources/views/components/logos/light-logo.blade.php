@@ -1,8 +1,4 @@
-<svg {{
-     $attributes->class([
-        'w-100',
-        'h-auto'
-    ]) }}
+<svg {{ $attributes }}
     viewBox="0 0 935 550"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

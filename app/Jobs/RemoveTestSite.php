@@ -2,18 +2,13 @@
 
 namespace App\Jobs;
 
-use App\Http\Controllers\SiteController;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Storage;
 
 class RemoveTestSite implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Queueable;
 
     public $zipPath;
     public $sitePath;
@@ -36,10 +31,10 @@ class RemoveTestSite implements ShouldQueue
      */
     public function handle()
     {
-        if (Storage::exists($this->zipPath))
-            Storage::delete($this->zipPath);
+        if (Storage::disk('public')->exists($this->zipPath))
+            Storage::disk('public')->delete($this->zipPath);
 
-        if (Storage::exists($this->sitePath))
-            Storage::deleteDirectory($this->sitePath);
+        if (Storage::disk('public')->exists($this->sitePath))
+            Storage::disk('public')->deleteDirectory($this->sitePath);
     }
 }
