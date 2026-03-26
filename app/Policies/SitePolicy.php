@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Site;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class SitePolicy
 {
@@ -19,7 +18,7 @@ class SitePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Site $site): bool
+    public function view(?User $user, Site $site): bool
     {
         return true;
     }

@@ -114,4 +114,18 @@ return [
 
     'prefix' => env('CACHE_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')).'-cache-'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Serializable Classes Allow-List
+    |--------------------------------------------------------------------------
+    |
+    | By default, Laravel will not unserialize objects stored in the cache to
+    | mitigate potential gadget chain attacks. If your application caches
+    | specific object instances intentionally, list their classes here.
+    | Set to false to disallow all unserialization of cached objects.
+    |
+    */
+
+    'serializable_classes' => false,
+
 ];
