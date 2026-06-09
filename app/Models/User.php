@@ -46,6 +46,6 @@ class User extends Authenticatable
 
     public function isTeacher()
     {
-        return $this->type === 'teacher';
+        return $this->type === 'teacher' || $this->type === 'admin';
     }
 }

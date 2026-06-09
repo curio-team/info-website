@@ -10,7 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "curio/sdclient": "^5.0.0",
+        "curio/sdclient": "^5.1.0",
         "laravel/framework": "^13.0"
     },
     "require-dev": {
