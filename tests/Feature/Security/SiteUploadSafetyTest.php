@@ -185,6 +185,21 @@ class SiteUploadSafetyTest extends TestCase
         $this->assertSame(['new.html'], $this->extractedFiles($site->fresh()));
     }
 
+    public function test_the_upload_forms_warn_teachers_about_what_to_check(): void
+    {
+        $this->withoutVite();
+        $site = Site::factory()->create();
+
+        foreach ([route('sites.create'), route('sites.edit', $site)] as $url) {
+            $this->actingAs($this->teacher)->get($url)
+                ->assertOk()
+                ->assertSee('Controleer de zip voordat je hem uploadt')
+                ->assertSee('document.cookie')
+                ->assertSee('.htaccess')
+                ->assertSee('.user.ini');
+        }
+    }
+
     public function test_deleting_a_site_removes_its_files(): void
     {
         $this->storeSite($this->makeZipUpload(['index.html' => '<html></html>']));
