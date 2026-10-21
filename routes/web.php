@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 use App\Http\Middleware\AuthenticateTest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
     SdClient Auth
@@ -28,7 +28,7 @@ Route::get('/sdclient/error', function () {
     $error = session('sdclient.error');
     $error_description = session('sdclient.error_description');
 
-    return 'There was an error signing in: ' . $error_description . ' (' . $error . ')<br><a href="/login">Try again</a>';
+    return 'There was an error signing in: '.e($error_description).' ('.e($error).')<br><a href="/login">Try again</a>';
 });
 
 /*
@@ -42,11 +42,11 @@ Route::prefix('/')
     ->middleware('auth')
     ->group(function () {
         Route::resource('beheer', SiteController::class, [
-            'names' => 'sites'
+            'names' => 'sites',
         ])->parameters([
-            'beheer' => 'site'
+            'beheer' => 'site',
         ])->except([
-            'show'
+            'show',
         ]);
     });
 
@@ -57,5 +57,5 @@ Route::middleware(AuthenticateTest::class)->group(function () {
 });
 
 // Overrides default Resource route
-Route::get('/site/{site}/en', [SiteController::class, 'showEnglish'])->name('sites.show');
+Route::get('/site/{site}/en', [SiteController::class, 'showEnglish'])->name('sites.show.english');
 Route::get('/site/{site}', [SiteController::class, 'show'])->name('sites.show');

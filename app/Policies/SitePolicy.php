@@ -12,7 +12,7 @@ class SitePolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->isTeacher();
     }
 
     /**
@@ -28,7 +28,7 @@ class SitePolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isTeacher();
     }
 
     /**

@@ -11,28 +11,41 @@ class AuthenticateTest
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $auth_user = config('app.site_testing.access_user');
-        $auth_pass = config('app.site_testing.access_password');
-
-        header('Cache-Control: no-cache, must-revalidate, max-age=0');
-
-        $has_supplied_credentials = !(empty($_SERVER['PHP_AUTH_USER']) && empty($_SERVER['PHP_AUTH_PW']));
-        $is_not_authenticated = (
-            !$has_supplied_credentials ||
-            $_SERVER['PHP_AUTH_USER'] != $auth_user ||
-            $_SERVER['PHP_AUTH_PW']   != $auth_pass
-        );
-
-        if ($is_not_authenticated) {
-            header('HTTP/1.1 401 Authorization Required');
-            header('WWW-Authenticate: Basic realm="Access denied"');
-            exit;
+        if (! $this->hasValidCredentials($request)) {
+            return response('Unauthorized', Response::HTTP_UNAUTHORIZED, [
+                'WWW-Authenticate' => 'Basic realm="Access denied"',
+                'Cache-Control' => 'no-cache, must-revalidate, max-age=0',
+            ]);
         }
 
-        return $next($request);
+        $response = $next($request);
+        $response->headers->set('Cache-Control', 'no-cache, must-revalidate, max-age=0');
+
+        return $response;
+    }
+
+    /**
+     * Fails closed: when no user or password is configured, nobody is let in.
+     */
+    private function hasValidCredentials(Request $request): bool
+    {
+        $authUser = (string) config('app.site_testing.access_user');
+        $authPassword = (string) config('app.site_testing.access_password');
+
+        if ($authUser === '' || $authPassword === '') {
+            return false;
+        }
+
+        $suppliedUser = (string) $request->getUser();
+        $suppliedPassword = (string) $request->getPassword();
+
+        $userMatches = hash_equals($authUser, $suppliedUser);
+        $passwordMatches = hash_equals($authPassword, $suppliedPassword);
+
+        return $userMatches && $passwordMatches;
     }
 }
